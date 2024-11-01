@@ -37,7 +37,7 @@ export const StepperButtons = () => {
       const newPost = await response.json()
 
       setIsLoading(false)
-      router.push(`/post/${newPost.id}`)
+      router.push(`/posts/${newPost.id}`)
     } catch (error) {
       console.error('Failed to save post', error)
       setIsLoading(false)
