@@ -12,7 +12,7 @@ import { objectiveToIconMapper } from '@/app/mappers/objective'
 import { personaToIconMapper } from '@/app/mappers/persona'
 import { useSelector } from 'react-redux'
 
-export const Summary = () => {
+export const PostOverview = () => {
   const { post } = useSelector((state: RootState) => state.post)
 
   // TODO: create skeleton

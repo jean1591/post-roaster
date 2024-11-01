@@ -1,8 +1,8 @@
 import { DataFetcher } from './components/DataFetcher'
 import Link from 'next/link'
 import { PostDto } from '@/app/api/posts/[cuid]/route'
-import { Results } from './components/Results'
-import { Summary } from './components/Summary'
+import { PostOverview } from './components/PostOverview'
+import { Tabs } from './components/Tabs'
 import { buttonHoverTransition } from '@/design/constants'
 import { classNames } from '@/utils/classNames'
 import { fetchDataFromApi } from '@/utils/fetchDataFromApi'
@@ -25,11 +25,13 @@ export default async function PostPage({
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <div className="rounded-md border-[1px] border-slate-200 p-4 shadow-sm">
-              <Summary />
+              <PostOverview />
             </div>
           </div>
 
-          <Results />
+          <div className="col-span-1 lg:col-span-2">
+            <Tabs />
+          </div>
         </div>
       </div>
     </div>
