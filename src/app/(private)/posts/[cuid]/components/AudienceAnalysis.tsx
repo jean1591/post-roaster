@@ -7,7 +7,7 @@ export const AudienceAnaylis = () => {
   const { postAnalysis } = useSelector((state: RootState) => state.post)
 
   const personaAlignment = postAnalysis.find(
-    ({ label }) => label === Analysis.ToneAnalysis
+    ({ label }) => label === Analysis.PersonaAlignment
   )
   const platformSpecificLanguage = postAnalysis.find(
     ({ label }) => label === Analysis.PlatformSpecificLanguage

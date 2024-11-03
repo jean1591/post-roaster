@@ -12,7 +12,7 @@ export const analysisToDescriptionMapper = {
   [Analysis.PersonaAlignment]:
     'Ensures the content resonates with the targeted audience or persona.',
   [Analysis.PlatformSpecificLanguage]:
-    'Check,s that the language and style suit the norms and preferences of the chosen platform.',
+    'Checks that the language and style suit the norms and preferences of the chosen platform.',
   [Analysis.ObjectiveAlignmentCheck]:
     'Verifies if the content aligns with the primary goal, such as maximizing engagement or providing information.',
   [Analysis.EngagementPotential]:

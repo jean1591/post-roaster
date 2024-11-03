@@ -33,6 +33,11 @@ export async function POST(req: Request) {
     })
     console.log('🚀 ~ POST ~ newPost:', newPost)
 
+    /* Analysis */
+    // TODO: send post content and post params to openAi
+    // TODO: save analysis in DB
+    // TODO: return analysis with post
+
     return NextResponse.json(newPost)
   } catch (error) {
     console.error('Post creation error:', error)
@@ -42,3 +47,31 @@ export async function POST(req: Request) {
     )
   }
 }
+
+/*
+Analyse the following post:
+
+${postContent}
+
+The platform is ${platform}, the targeted persona is ${audience} and the objective is to ${objective}.
+
+For the provided post, return a json object with a notation from 0 to 10, 10 being perfect in its category, and a suggestions array that provide actionable insights with examples when applicable. The data structure should be:
+[
+  { label: "Tone Analysis", notation: <some number from 0 to 10>, suggestions: ["improve this", "improve that"] }
+]
+
+Do that for the following categories:
+Tone Analysis
+Readability Score
+Text Length Check
+Paragraph and Sentence Structure
+Persona Alignment
+Platform-Specific Language
+Objective Alignment Check
+Engagement Potential
+Hashtag Suggestions
+Clarity and Specificity
+Grammar and Spelling Check
+Buzzword and Cliché Detector
+Sentiment Analysis
+*/

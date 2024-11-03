@@ -15,12 +15,16 @@ export const StructureAnaylis = () => {
   const paragraphAndSentenceStructure = postAnalysis.find(
     ({ label }) => label === Analysis.ParagraphAndSentenceStructure
   )
+  const readabilityScore = postAnalysis.find(
+    ({ label }) => label === Analysis.ReadabilityScore
+  )
 
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <DetailedAnalysis analysis={textLengthCheck!} />
       <DetailedAnalysis analysis={toneAnalysis!} />
       <DetailedAnalysis analysis={paragraphAndSentenceStructure!} />
+      <DetailedAnalysis analysis={readabilityScore!} />
     </div>
   )
 }
