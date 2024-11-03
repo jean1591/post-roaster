@@ -66,5 +66,24 @@ model Post {
     updatedAt DateTime @updatedAt
     userId    String
 
-    user User @relation(fields: [userId], references: [id])
+    PostAnalysis PostAnalysis[]
+    user         User           @relation(fields: [userId], references: [id])
+}
+
+model PostAnalysis {
+    id          String       @id @default(cuid())
+    label       String
+    notation    Int
+    postId      String
+    suggestions Suggestion[]
+
+    post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model Suggestion {
+    id             String @id @default(cuid())
+    postAnalysisId String
+    suggestion     String
+
+    postAnalysis PostAnalysis @relation(fields: [postAnalysisId], references: [id], onDelete: Cascade)
 }

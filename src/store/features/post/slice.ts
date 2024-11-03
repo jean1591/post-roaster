@@ -18,7 +18,7 @@ export enum Analysis {
   ToneAnalysis = 'Tone Analysis',
 }
 
-interface PostAnalysis {
+export interface PostAnalysis {
   label: Analysis
   notation: number
   suggestions: string[]

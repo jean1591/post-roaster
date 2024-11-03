@@ -40,7 +40,7 @@ export interface createPostSlice {
   objective: Objective | null
   persona: Persona | null
   platform: Platform | null
-  postText: string
+  postContent: string
   step: number
   steps: typeof steps
 }
@@ -49,7 +49,7 @@ const initialState: createPostSlice = {
   objective: null,
   persona: null,
   platform: null,
-  postText: '',
+  postContent: '',
   step: 0,
   steps,
 }
@@ -70,13 +70,18 @@ export const createPostSlice = createSlice({
     setStep: (state, action: PayloadAction<number>) => {
       state.step = action.payload
     },
-    setPostText: (state, action: PayloadAction<string>) => {
-      state.postText = action.payload
+    setPostContent: (state, action: PayloadAction<string>) => {
+      state.postContent = action.payload
     },
   },
 })
 
-export const { setObjective, setPersona, setPlatform, setStep, setPostText } =
-  createPostSlice.actions
+export const {
+  setObjective,
+  setPersona,
+  setPlatform,
+  setStep,
+  setPostContent,
+} = createPostSlice.actions
 
 export default createPostSlice.reducer

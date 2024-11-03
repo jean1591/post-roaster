@@ -14,9 +14,8 @@ export const StepperButtons = () => {
 
   const router = useRouter()
   const dispatch = useDispatch()
-  const { objective, persona, platform, postText, step, steps } = useSelector(
-    (state: RootState) => state.createPost
-  )
+  const { objective, persona, platform, postContent, step, steps } =
+    useSelector((state: RootState) => state.createPost)
 
   const handleNextStep = () => {
     dispatch(setStep(step + 1))
@@ -31,7 +30,7 @@ export const StepperButtons = () => {
       const response = await fetch('/api/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ objective, persona, platform, postText }),
+        body: JSON.stringify({ objective, persona, platform, postContent }),
       })
 
       const newPost = await response.json()

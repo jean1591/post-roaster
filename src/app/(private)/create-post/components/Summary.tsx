@@ -13,7 +13,7 @@ import { personaToIconMapper } from '@/app/mappers/persona'
 import { useSelector } from 'react-redux'
 
 export const Summary = () => {
-  const { objective, persona, platform, postText } = useSelector(
+  const { objective, persona, platform, postContent } = useSelector(
     (state: RootState) => state.createPost
   )
 
@@ -21,9 +21,9 @@ export const Summary = () => {
     <div className="space-y-4">
       <p className="text-lg font-bold tracking-tight">Post Overview</p>
 
-      {postText && (
+      {postContent && (
         <p className="rounded-md border-[1px] border-slate-200 p-2 text-left text-sm leading-none tracking-tight">
-          {postText.slice(0, 100)}...
+          {postContent.slice(0, 100)}...
         </p>
       )}
       {platform && <Platform />}
