@@ -1,13 +1,11 @@
 import { Objective, Persona, Platform } from '@/store/features/createPost/slice'
 
 import { NextResponse } from 'next/server'
-import { PostAnalysis } from '@/store/features/post/slice'
+import { PostAnalysis } from '../interfaces/post'
 import { getOpenAiData } from '../utils/getOpenAiData'
 import { getSession } from '../auth/[...nextauth]/authOptions'
 import { openAiResponseToJsonFormatter } from '../utils/openAiResponseFormater'
 import prisma from '@/lib/prisma'
-
-// TODO: return analysis with post
 
 export async function POST(req: Request) {
   try {
@@ -118,7 +116,9 @@ const generatePrompt = ({
 
     The platform is ${platform}, the targeted persona is ${persona} and the objective is to ${objective}.
 
-    For the provided post, return a json object with a notation from 0 to 10, 10 being perfect in its category, and a suggestions array that provide actionable insights with examples when applicable. The data structure should be:
+    For the provided post, return a json object with a notation from 0 to 10, 10 being perfect in its category, and a suggestions array that provide actionable insights with examples when applicable. Use harsh notation, be blunt in your suggestions.
+
+    The data structure should be:
     [
       { label: "Tone Analysis", notation: <some number from 0 to 10>, suggestions: ["improve this", "improve that"] }
     ]

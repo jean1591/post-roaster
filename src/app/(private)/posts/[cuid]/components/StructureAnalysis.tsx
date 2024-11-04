@@ -1,10 +1,14 @@
-import { Analysis } from '@/store/features/post/slice'
+import { Analysis } from '@/app/api/interfaces/post'
 import { DetailedAnalysis } from './DetailedAnalysis'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 
 export const StructureAnaylis = () => {
   const { postAnalysis } = useSelector((state: RootState) => state.post)
+
+  if (!postAnalysis) {
+    return <></>
+  }
 
   const textLengthCheck = postAnalysis.find(
     ({ label }) => label === Analysis.TextLengthCheck

@@ -10,7 +10,12 @@ import { Tab as TabEnum } from '@/store/features/post/slice'
 import { useSelector } from 'react-redux'
 
 export const Tab = () => {
-  const { tab } = useSelector((state: RootState) => state.post)
+  const { postAnalysis, tab } = useSelector((state: RootState) => state.post)
+
+  // TODO: create skeleton
+  if (!postAnalysis) {
+    return <></>
+  }
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import { Analysis } from '@/store/features/post/slice'
+import { Analysis } from '../api/interfaces/post'
 
 export const analysisToDescriptionMapper = {
   [Analysis.ToneAnalysis]:

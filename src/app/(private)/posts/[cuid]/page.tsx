@@ -13,11 +13,11 @@ export default async function PostPage({
   params: { cuid: string }
 }) {
   const data = await fetchDataFromApi<PostDto>(`api/posts/${params.cuid}`)
-  const { post } = data
+  const { post, postAnalysis } = data
 
   return (
     <div>
-      <DataFetcher post={post} />
+      <DataFetcher post={post} postAnalysis={postAnalysis} />
 
       <div className="m-4 space-y-4 lg:m-8">
         <Header />

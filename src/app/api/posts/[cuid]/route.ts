@@ -1,11 +1,23 @@
+import { Analysis, Post, PostAnalysis } from '../../interfaces/post'
 import { NextRequest, NextResponse } from 'next/server'
 import { endpointFormatter, logger } from '../../utils/logger'
 
-import { Post } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 import { getSession } from '../../auth/[...nextauth]/authOptions'
 import prisma from '@/lib/prisma'
 
+type PostWithAnalysisAndSuggestions = Prisma.PostGetPayload<{
+  include: {
+    postAnalysis: {
+      include: {
+        suggestions: true
+      }
+    }
+  }
+}>
+
 export interface PostDto {
+  postAnalysis: PostAnalysis[]
   post: Post
 }
 
@@ -18,7 +30,6 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { cuid: string } }
 ): Promise<NextResponse<PostDto | Error>> {
-  console.log(params.cuid)
   logger.info(endpointFormatter(request))
 
   const session = await getSession()
@@ -32,7 +43,10 @@ export async function GET(
     user: { id: userId },
   } = session
 
-  const post = await prisma.post.findUnique({ where: { id: params.cuid } })
+  const post = (await prisma.post.findUnique({
+    where: { id: params.cuid },
+    include: { postAnalysis: { include: { suggestions: true } } },
+  })) as PostWithAnalysisAndSuggestions
 
   if (!post) {
     return NextResponse.json(
@@ -48,5 +62,31 @@ export async function GET(
     )
   }
 
-  return NextResponse.json({ post })
+  return NextResponse.json({
+    post: formatPost(post),
+    postAnalysis: formatPostAnalysis(post),
+  })
+}
+
+const formatPost = (post: PostWithAnalysisAndSuggestions): Post => {
+  return {
+    id: post.id,
+    content: post.content,
+    createdAt: post.createdAt,
+    objective: post.objective,
+    persona: post.persona,
+    platform: post.platform,
+    updatedAt: post.updatedAt,
+    userId: post.userId,
+  }
+}
+
+const formatPostAnalysis = ({
+  postAnalysis,
+}: PostWithAnalysisAndSuggestions): PostAnalysis[] => {
+  return postAnalysis.map(({ label, notation, suggestions }) => ({
+    label: label as Analysis,
+    notation,
+    suggestions: suggestions.map(({ suggestion }) => suggestion),
+  }))
 }

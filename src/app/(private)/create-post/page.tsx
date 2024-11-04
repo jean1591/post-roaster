@@ -6,6 +6,7 @@ import { Summary } from './components/Summary'
 import { buttonHoverTransition } from '@/design/constants'
 import { classNames } from '@/utils/classNames'
 
+// TODO: at "Validate Post", change page to display loader animation
 export default async function CreatePostPage() {
   return (
     <div className="m-4 space-y-4 lg:m-8">

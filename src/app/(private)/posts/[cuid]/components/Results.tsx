@@ -1,6 +1,6 @@
 'use client'
 
-import { Analysis } from '@/store/features/post/slice'
+import { Analysis } from '@/app/api/interfaces/post'
 import { Result } from './Result'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
@@ -18,6 +18,10 @@ export const Results = () => {
 
 const ContentStructure = () => {
   const { postAnalysis } = useSelector((state: RootState) => state.post)
+
+  if (!postAnalysis) {
+    return <></>
+  }
 
   const textLengthCheck = postAnalysis.find(
     ({ label }) => label === Analysis.TextLengthCheck
@@ -63,6 +67,10 @@ const ContentStructure = () => {
 const AudienceAlignment = () => {
   const { postAnalysis } = useSelector((state: RootState) => state.post)
 
+  if (!postAnalysis) {
+    return <></>
+  }
+
   const personaAlignment = postAnalysis.find(
     ({ label }) => label === Analysis.PersonaAlignment
   )
@@ -100,6 +108,10 @@ const AudienceAlignment = () => {
 const EngagementOptimization = () => {
   const { postAnalysis } = useSelector((state: RootState) => state.post)
 
+  if (!postAnalysis) {
+    return <></>
+  }
+
   const engagementPotential = postAnalysis.find(
     ({ label }) => label === Analysis.EngagementPotential
   )
@@ -136,6 +148,10 @@ const EngagementOptimization = () => {
 
 const LanguageQuality = () => {
   const { postAnalysis } = useSelector((state: RootState) => state.post)
+
+  if (!postAnalysis) {
+    return <></>
+  }
 
   const grammarAndSpellingCheck = postAnalysis.find(
     ({ label }) => label === Analysis.GrammarAndSpellingCheck
