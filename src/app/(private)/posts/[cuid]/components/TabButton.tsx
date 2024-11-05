@@ -17,7 +17,7 @@ export const TabButton = ({ label }: { label: TabEnum }) => {
         label === tab
           ? 'bg-white text-black hover:bg-slate-200'
           : 'bg-black text-white hover:bg-slate-700',
-        'rounded-md border-[1px] border-black px-2 py-1 font-bold tracking-tight'
+        'rounded-md border-[1px] border-black px-4 py-1 font-bold tracking-tight'
       )}
     >
       {label}

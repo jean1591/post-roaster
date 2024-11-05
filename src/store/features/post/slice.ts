@@ -21,6 +21,7 @@ const initialState: PostSlice = {
   tab: Tab.Summary,
 }
 
+// TODO: rename createPostSlice to postSlice
 export const createPostSlice = createSlice({
   name: 'createPostSlice',
   initialState,

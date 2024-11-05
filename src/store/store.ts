@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import createPostReducer from './features/createPost/slice'
+import dashboardReducer from './features/dashboard/slice'
 import interactionsReducer from './features/interactions/slice'
 import postReducer from './features/post/slice'
 
 export const store = configureStore({
   reducer: {
     createPost: createPostReducer,
+    dashboard: dashboardReducer,
     interactions: interactionsReducer,
     post: postReducer,
   },

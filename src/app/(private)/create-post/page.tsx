@@ -36,7 +36,7 @@ const Header = () => {
       <Link
         className={classNames(
           buttonHoverTransition,
-          'rounded-md bg-black px-2 py-1 font-bold tracking-tight text-white hover:bg-slate-700'
+          'rounded-md border-[1px] border-black bg-black px-2 py-1 font-bold tracking-tight text-white hover:bg-white hover:text-black'
         )}
         href="/dashboard"
       >

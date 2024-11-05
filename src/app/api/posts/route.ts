@@ -1,13 +1,15 @@
+import { NextRequest, NextResponse } from 'next/server'
 import { Objective, Persona, Platform } from '@/store/features/createPost/slice'
+import { endpointFormatter, logger } from '../utils/logger'
 
-import { NextResponse } from 'next/server'
 import { PostAnalysis } from '../interfaces/post'
 import { getOpenAiData } from '../utils/getOpenAiData'
 import { getSession } from '../auth/[...nextauth]/authOptions'
 import { openAiResponseToJsonFormatter } from '../utils/openAiResponseFormater'
 import prisma from '@/lib/prisma'
 
-export async function POST(req: Request) {
+export async function POST(request: NextRequest) {
+  logger.info(endpointFormatter(request))
   try {
     const session = await getSession()
 
@@ -32,7 +34,7 @@ export async function POST(req: Request) {
       )
     }
 
-    const { objective, persona, platform, postContent } = await req.json()
+    const { objective, persona, platform, postContent } = await request.json()
     const newPost = await validatePost({
       objective,
       persona,

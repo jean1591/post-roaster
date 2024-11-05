@@ -19,7 +19,7 @@ export default async function PostPage({
     <div>
       <DataFetcher post={post} postAnalysis={postAnalysis} />
 
-      <div className="m-4 space-y-4 lg:m-8">
+      <div className="m-4 space-y-8 lg:m-8">
         <Header />
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -48,7 +48,7 @@ const Header = () => {
       <Link
         className={classNames(
           buttonHoverTransition,
-          'rounded-md bg-black px-2 py-1 font-bold tracking-tight text-white hover:bg-slate-700'
+          'rounded-md border-[1px] border-black bg-black px-4 py-1 font-bold tracking-tight text-white hover:bg-white hover:text-black'
         )}
         href="/dashboard"
       >

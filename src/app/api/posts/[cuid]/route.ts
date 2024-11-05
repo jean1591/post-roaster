@@ -35,8 +35,8 @@ export async function GET(
   const session = await getSession()
 
   if (!session) {
-    console.error('The user has no session')
-    throw new Error('The user has no session')
+    console.error('Session not found')
+    throw new Error('Session not found')
   }
 
   const {
