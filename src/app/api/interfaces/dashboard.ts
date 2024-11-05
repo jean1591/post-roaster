@@ -1,6 +1,8 @@
-export interface Notation {
-  audience: number
-  engagement: number
-  language: number
-  structure: number
+export enum Category {
+  Audience = 'audience',
+  Engagement = 'engagement',
+  Language = 'language',
+  Structure = 'structure',
 }
+
+export type Notation = Record<Category, number>
