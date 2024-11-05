@@ -1,28 +1,122 @@
 'use client'
 
-import { Analysis } from '@/app/api/interfaces/post'
+import { Analysis, PostAnalysis } from '@/app/api/interfaces/post'
+
 import { Result } from './Result'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 
 export const Results = () => {
-  return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-      <AudienceAlignment />
-      <EngagementOptimization />
-      <LanguageQuality />
-      <ContentStructure />
-    </div>
-  )
-}
-
-const ContentStructure = () => {
   const { postAnalysis } = useSelector((state: RootState) => state.post)
 
   if (!postAnalysis) {
     return <></>
   }
 
+  const {
+    audienceResults,
+    engagementResults,
+    languageResults,
+    structureResults,
+  } = extractCategories(postAnalysis)
+
+  return (
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <ResultsCard label="Audience Alignment" results={audienceResults} />
+      <ResultsCard
+        label="Engagement Optimization"
+        results={engagementResults}
+      />
+      <ResultsCard label="Language Quality" results={languageResults} />
+      <ResultsCard label="Content Structure" results={structureResults} />
+    </div>
+  )
+}
+
+const ResultsCard = ({
+  label,
+  results,
+}: {
+  label: string
+  results: (PostAnalysis | undefined)[]
+}) => {
+  return (
+    <div className="space-y-4 rounded-md border-[1px] border-slate-200 p-4 shadow-sm">
+      <h3 className="tracking-tigh text-lg font-bold leading-none">{label}</h3>
+
+      <div className="space-y-2">
+        {results.map((result) => (
+          <Result
+            key={result?.label}
+            label={result?.label ?? ''}
+            value={result?.notation ?? 0}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const extractCategories = (
+  postAnalysis: PostAnalysis[]
+): {
+  audienceResults: (PostAnalysis | undefined)[]
+  engagementResults: (PostAnalysis | undefined)[]
+  languageResults: (PostAnalysis | undefined)[]
+  structureResults: (PostAnalysis | undefined)[]
+} => {
+  /* Audience */
+  const personaAlignment = postAnalysis.find(
+    ({ label }) => label === Analysis.PersonaAlignment
+  )
+  const platformSpecificLanguage = postAnalysis.find(
+    ({ label }) => label === Analysis.PlatformSpecificLanguage
+  )
+  const objectiveAlignmentCheck = postAnalysis.find(
+    ({ label }) => label === Analysis.ObjectiveAlignmentCheck
+  )
+
+  const audienceResults = [
+    personaAlignment,
+    platformSpecificLanguage,
+    objectiveAlignmentCheck,
+  ]
+
+  /* Engagement */
+  const engagementPotential = postAnalysis.find(
+    ({ label }) => label === Analysis.EngagementPotential
+  )
+  const hashtagSuggestions = postAnalysis.find(
+    ({ label }) => label === Analysis.HashtagSuggestions
+  )
+  const clarityAndSpecificity = postAnalysis.find(
+    ({ label }) => label === Analysis.ClarityAndSpecificity
+  )
+
+  const engagementResults = [
+    engagementPotential,
+    hashtagSuggestions,
+    clarityAndSpecificity,
+  ]
+
+  /* Language */
+  const grammarAndSpellingCheck = postAnalysis.find(
+    ({ label }) => label === Analysis.GrammarAndSpellingCheck
+  )
+  const buzzwordAndClichéDetector = postAnalysis.find(
+    ({ label }) => label === Analysis.BuzzwordAndClichéDetector
+  )
+  const sentimentAnalysis = postAnalysis.find(
+    ({ label }) => label === Analysis.SentimentAnalysis
+  )
+
+  const languageResults = [
+    grammarAndSpellingCheck,
+    buzzwordAndClichéDetector,
+    sentimentAnalysis,
+  ]
+
+  /* Structure */
   const textLengthCheck = postAnalysis.find(
     ({ label }) => label === Analysis.TextLengthCheck
   )
@@ -36,153 +130,17 @@ const ContentStructure = () => {
     ({ label }) => label === Analysis.ReadabilityScore
   )
 
-  return (
-    <div className="space-y-4 rounded-md border-[1px] border-slate-200 p-4 shadow-sm">
-      <h3 className="tracking-tigh text-lg font-bold leading-none">
-        Content Structure
-      </h3>
+  const structureResults = [
+    textLengthCheck,
+    toneAnalysis,
+    paragraphAndSentenceStructure,
+    readabilityScore,
+  ]
 
-      <div className="space-y-2">
-        <Result
-          label={toneAnalysis?.label ?? ''}
-          value={toneAnalysis?.notation ?? 0}
-        />
-        <Result
-          label={textLengthCheck?.label ?? ''}
-          value={textLengthCheck?.notation ?? 0}
-        />
-        <Result
-          label={paragraphAndSentenceStructure?.label ?? ''}
-          value={paragraphAndSentenceStructure?.notation ?? 0}
-        />
-        <Result
-          label={readabilityScore?.label ?? ''}
-          value={readabilityScore?.notation ?? 0}
-        />
-      </div>
-    </div>
-  )
-}
-
-const AudienceAlignment = () => {
-  const { postAnalysis } = useSelector((state: RootState) => state.post)
-
-  if (!postAnalysis) {
-    return <></>
+  return {
+    audienceResults,
+    engagementResults,
+    languageResults,
+    structureResults,
   }
-
-  const personaAlignment = postAnalysis.find(
-    ({ label }) => label === Analysis.PersonaAlignment
-  )
-  const platformSpecificLanguage = postAnalysis.find(
-    ({ label }) => label === Analysis.PlatformSpecificLanguage
-  )
-  const objectiveAlignmentCheck = postAnalysis.find(
-    ({ label }) => label === Analysis.ObjectiveAlignmentCheck
-  )
-
-  return (
-    <div className="space-y-4 rounded-md border-[1px] border-slate-200 p-4 shadow-sm">
-      <h3 className="tracking-tigh text-lg font-bold leading-none">
-        Audience Alignment
-      </h3>
-
-      <div className="space-y-2">
-        <Result
-          label={personaAlignment?.label ?? ''}
-          value={personaAlignment?.notation ?? 0}
-        />
-        <Result
-          label={platformSpecificLanguage?.label ?? ''}
-          value={platformSpecificLanguage?.notation ?? 0}
-        />
-        <Result
-          label={objectiveAlignmentCheck?.label ?? ''}
-          value={objectiveAlignmentCheck?.notation ?? 0}
-        />
-      </div>
-    </div>
-  )
-}
-
-const EngagementOptimization = () => {
-  const { postAnalysis } = useSelector((state: RootState) => state.post)
-
-  if (!postAnalysis) {
-    return <></>
-  }
-
-  const engagementPotential = postAnalysis.find(
-    ({ label }) => label === Analysis.EngagementPotential
-  )
-  const hashtagSuggestions = postAnalysis.find(
-    ({ label }) => label === Analysis.HashtagSuggestions
-  )
-  const clarityAndSpecificity = postAnalysis.find(
-    ({ label }) => label === Analysis.ClarityAndSpecificity
-  )
-
-  return (
-    <div className="space-y-4 rounded-md border-[1px] border-slate-200 p-4 shadow-sm">
-      <h3 className="tracking-tigh text-lg font-bold leading-none">
-        Engagement Optimization
-      </h3>
-
-      <div className="space-y-2">
-        <Result
-          label={engagementPotential?.label ?? ''}
-          value={engagementPotential?.notation ?? 0}
-        />
-        <Result
-          label={hashtagSuggestions?.label ?? ''}
-          value={hashtagSuggestions?.notation ?? 0}
-        />
-        <Result
-          label={clarityAndSpecificity?.label ?? ''}
-          value={clarityAndSpecificity?.notation ?? 0}
-        />
-      </div>
-    </div>
-  )
-}
-
-const LanguageQuality = () => {
-  const { postAnalysis } = useSelector((state: RootState) => state.post)
-
-  if (!postAnalysis) {
-    return <></>
-  }
-
-  const grammarAndSpellingCheck = postAnalysis.find(
-    ({ label }) => label === Analysis.GrammarAndSpellingCheck
-  )
-  const buzzwordAndClichéDetector = postAnalysis.find(
-    ({ label }) => label === Analysis.BuzzwordAndClichéDetector
-  )
-  const sentimentAnalysis = postAnalysis.find(
-    ({ label }) => label === Analysis.SentimentAnalysis
-  )
-
-  return (
-    <div className="space-y-4 rounded-md border-[1px] border-slate-200 p-4 shadow-sm">
-      <h3 className="tracking-tigh text-lg font-bold leading-none">
-        Language Quality
-      </h3>
-
-      <div className="space-y-2">
-        <Result
-          label={grammarAndSpellingCheck?.label ?? ''}
-          value={grammarAndSpellingCheck?.notation ?? 0}
-        />
-        <Result
-          label={buzzwordAndClichéDetector?.label ?? ''}
-          value={buzzwordAndClichéDetector?.notation ?? 0}
-        />
-        <Result
-          label={sentimentAnalysis?.label ?? ''}
-          value={sentimentAnalysis?.notation ?? 0}
-        />
-      </div>
-    </div>
-  )
 }
