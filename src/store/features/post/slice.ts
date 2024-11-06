@@ -10,7 +10,7 @@ export enum Tab {
 }
 
 export interface PostSlice {
-  postAnalysis: PostAnalysis[] | null
+  postAnalysis: PostAnalysis | null
   post: Post | null
   tab: Tab
 }
@@ -26,7 +26,7 @@ export const createPostSlice = createSlice({
   name: 'createPostSlice',
   initialState,
   reducers: {
-    setPostAnalysis: (state, action: PayloadAction<PostAnalysis[]>) => {
+    setPostAnalysis: (state, action: PayloadAction<PostAnalysis>) => {
       state.postAnalysis = action.payload
     },
     setPost: (state, action: PayloadAction<Post>) => {

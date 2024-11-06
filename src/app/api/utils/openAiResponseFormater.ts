@@ -1,12 +1,12 @@
-import { PostAnalysis } from '@/store/features/post/slice'
+import { PostAnalysis } from '../interfaces/post'
 import { isNil } from 'lodash'
 
 export const openAiResponseToJsonFormatter = (
   content: string
-): PostAnalysis[] => {
+): PostAnalysis => {
   const jsonMatch = content.match(/```json\n([\s\S]*?)\n```/)
 
-  const response: PostAnalysis[] | null = jsonMatch
+  const response: PostAnalysis | null = jsonMatch
     ? JSON.parse(jsonMatch[1])
     : null
 
@@ -14,7 +14,7 @@ export const openAiResponseToJsonFormatter = (
     return response
   }
 
-  const formattedContent: PostAnalysis[] = JSON.parse(content)
+  const formattedContent: PostAnalysis = JSON.parse(content)
   if (!isNil(formattedContent)) {
     return formattedContent
   }

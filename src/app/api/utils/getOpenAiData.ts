@@ -16,7 +16,7 @@ export const getOpenAiData = async (prompt: string): Promise<Completion> => {
     ],
   })
 
-  console.info(JSON.stringify(completion, null, 2))
+  // console.info(JSON.stringify(completion, null, 2))
 
   return completion
 }

@@ -5,7 +5,7 @@ import { EngagementAnaylis } from './EngagementAnalysis'
 import { LanguageAnaylis } from './LanguageAnalysis'
 import { Results } from './Results'
 import { RootState } from '@/store/store'
-import { StructureAnaylis } from './StructureAnalysis'
+import { StructureAnalysis } from './StructureAnalysis'
 import { Tab as TabEnum } from '@/store/features/post/slice'
 import { useSelector } from 'react-redux'
 
@@ -23,7 +23,7 @@ export const Tab = () => {
       {tab === TabEnum.Audience && <AudienceAnaylis />}
       {tab === TabEnum.Engagement && <EngagementAnaylis />}
       {tab === TabEnum.Language && <LanguageAnaylis />}
-      {tab === TabEnum.Structure && <StructureAnaylis />}
+      {tab === TabEnum.Structure && <StructureAnalysis />}
     </div>
   )
 }

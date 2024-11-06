@@ -66,8 +66,27 @@ model Post {
     updatedAt DateTime @updatedAt
     userId    String
 
+    credibility  Credibility?
+    message      Message?
     postAnalysis PostAnalysis[]
     user         User           @relation(fields: [userId], references: [id])
+}
+
+model Credibility {
+    id      String @id @default(cuid())
+    message String
+    postId  String @unique
+    value   Int    @default(0)
+
+    post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model Message {
+    id      String @id @default(cuid())
+    message String
+    postId  String @unique
+
+    post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model PostAnalysis {

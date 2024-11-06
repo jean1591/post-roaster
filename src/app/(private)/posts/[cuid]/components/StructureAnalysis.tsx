@@ -3,23 +3,23 @@ import { DetailedAnalysis } from './DetailedAnalysis'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 
-export const StructureAnaylis = () => {
+export const StructureAnalysis = () => {
   const { postAnalysis } = useSelector((state: RootState) => state.post)
 
   if (!postAnalysis) {
     return <></>
   }
 
-  const textLengthCheck = postAnalysis.find(
+  const textLengthCheck = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.TextLengthCheck
   )
-  const toneAnalysis = postAnalysis.find(
+  const toneAnalysis = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.ToneAnalysis
   )
-  const paragraphAndSentenceStructure = postAnalysis.find(
+  const paragraphAndSentenceStructure = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.ParagraphAndSentenceStructure
   )
-  const readabilityScore = postAnalysis.find(
+  const readabilityScore = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.ReadabilityScore
   )
 

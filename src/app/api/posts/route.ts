@@ -78,25 +78,54 @@ const validatePost = async ({
   )
 
   await savePostAnalysis(newPost.id, postAnalysis)
+  await savePostCredibility(postAnalysis.credibility, newPost.id)
+  await savePostMessage(postAnalysis.message, newPost.id)
 
   return newPost
 }
 
-async function savePostAnalysis(postId: string, postAnalysis: PostAnalysis[]) {
-  for (const analysis of postAnalysis) {
+async function savePostAnalysis(postId: string, postAnalysis: PostAnalysis) {
+  const { analysis } = postAnalysis
+
+  for (const analysisItem of analysis) {
     await prisma.postAnalysis.create({
       data: {
         postId: postId,
-        label: analysis.label,
-        notation: analysis.notation,
+        label: analysisItem.label,
+        notation: analysisItem.notation,
         suggestions: {
-          create: analysis.suggestions.map((suggestion) => ({
+          create: analysisItem.suggestions.map((suggestion) => ({
             suggestion: suggestion,
           })),
         },
       },
     })
   }
+}
+
+const savePostCredibility = async (
+  credibility: {
+    value: number
+    message: string
+  },
+  postId: string
+) => {
+  await prisma.credibility.create({
+    data: {
+      postId: postId,
+      message: credibility.message,
+      value: credibility.value,
+    },
+  })
+}
+
+const savePostMessage = async (message: string, postId: string) => {
+  await prisma.message.create({
+    data: {
+      postId: postId,
+      message,
+    },
+  })
 }
 
 interface PromptOptions {
@@ -119,12 +148,19 @@ const generatePrompt = ({
     The platform is ${platform}, the targeted persona is ${persona} and the objective is to ${objective}.
 
     For the provided post, return a json object with a notation from 0 to 10, 10 being perfect in its category, and a suggestions array that provide actionable insights with examples when applicable. Use harsh notation, be blunt in your suggestions.
-
+    
     The data structure should be:
-    [
-      { label: "Tone Analysis", notation: <some number from 0 to 10>, suggestions: ["improve this", "improve that"] }
-    ]
-
+    {
+      credibility: {
+        value: number, from 0 to 100, 100 being completely true
+        message: string, an explanation why the score is not at 100
+      }
+      message: string, a one sentence summary of the post
+      analysis: [
+        { label: "Tone Analysis", notation: <some number from 0 to 10>, suggestions: ["improve this", "improve that"] }
+      ]
+    }
+        
     Do that for the following categories:
     Tone Analysis
     Readability Score

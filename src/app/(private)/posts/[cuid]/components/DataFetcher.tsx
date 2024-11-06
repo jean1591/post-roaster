@@ -11,7 +11,7 @@ export const DataFetcher = ({
   postAnalysis,
   post,
 }: {
-  postAnalysis: PostAnalysis[]
+  postAnalysis: PostAnalysis
   post: Post
 }) => {
   const dispatch = useDispatch()

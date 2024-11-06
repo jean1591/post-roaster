@@ -10,13 +10,13 @@ export const LanguageAnaylis = () => {
     return <></>
   }
 
-  const grammarAndSpellingCheck = postAnalysis.find(
+  const grammarAndSpellingCheck = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.GrammarAndSpellingCheck
   )
-  const buzzwordAndClichéDetector = postAnalysis.find(
+  const buzzwordAndClichéDetector = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.BuzzwordAndClichéDetector
   )
-  const sentimentAnalysis = postAnalysis.find(
+  const sentimentAnalysis = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.SentimentAnalysis
   )
 

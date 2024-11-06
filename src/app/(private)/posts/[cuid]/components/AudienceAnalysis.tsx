@@ -10,13 +10,13 @@ export const AudienceAnaylis = () => {
     return <></>
   }
 
-  const personaAlignment = postAnalysis.find(
+  const personaAlignment = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.PersonaAlignment
   )
-  const platformSpecificLanguage = postAnalysis.find(
+  const platformSpecificLanguage = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.PlatformSpecificLanguage
   )
-  const objectiveAlignmentCheck = postAnalysis.find(
+  const objectiveAlignmentCheck = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.ObjectiveAlignmentCheck
   )
 

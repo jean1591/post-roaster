@@ -1,6 +1,6 @@
 'use client'
 
-import { Analysis, PostAnalysis } from '@/app/api/interfaces/post'
+import { Analysis, AnalysisItem } from '@/app/api/interfaces/post'
 
 import { Result } from './Result'
 import { RootState } from '@/store/store'
@@ -18,7 +18,7 @@ export const Results = () => {
     engagementResults,
     languageResults,
     structureResults,
-  } = extractCategories(postAnalysis)
+  } = extractCategories(postAnalysis.analysis)
 
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -38,7 +38,7 @@ const ResultsCard = ({
   results,
 }: {
   label: string
-  results: (PostAnalysis | undefined)[]
+  results: (AnalysisItem | undefined)[]
 }) => {
   return (
     <div className="space-y-4 rounded-md border-[1px] border-slate-200 p-4 shadow-sm">
@@ -58,21 +58,21 @@ const ResultsCard = ({
 }
 
 const extractCategories = (
-  postAnalysis: PostAnalysis[]
+  analysis: AnalysisItem[]
 ): {
-  audienceResults: (PostAnalysis | undefined)[]
-  engagementResults: (PostAnalysis | undefined)[]
-  languageResults: (PostAnalysis | undefined)[]
-  structureResults: (PostAnalysis | undefined)[]
+  audienceResults: (AnalysisItem | undefined)[]
+  engagementResults: (AnalysisItem | undefined)[]
+  languageResults: (AnalysisItem | undefined)[]
+  structureResults: (AnalysisItem | undefined)[]
 } => {
   /* Audience */
-  const personaAlignment = postAnalysis.find(
+  const personaAlignment = analysis.find(
     ({ label }) => label === Analysis.PersonaAlignment
   )
-  const platformSpecificLanguage = postAnalysis.find(
+  const platformSpecificLanguage = analysis.find(
     ({ label }) => label === Analysis.PlatformSpecificLanguage
   )
-  const objectiveAlignmentCheck = postAnalysis.find(
+  const objectiveAlignmentCheck = analysis.find(
     ({ label }) => label === Analysis.ObjectiveAlignmentCheck
   )
 
@@ -83,13 +83,13 @@ const extractCategories = (
   ]
 
   /* Engagement */
-  const engagementPotential = postAnalysis.find(
+  const engagementPotential = analysis.find(
     ({ label }) => label === Analysis.EngagementPotential
   )
-  const hashtagSuggestions = postAnalysis.find(
+  const hashtagSuggestions = analysis.find(
     ({ label }) => label === Analysis.HashtagSuggestions
   )
-  const clarityAndSpecificity = postAnalysis.find(
+  const clarityAndSpecificity = analysis.find(
     ({ label }) => label === Analysis.ClarityAndSpecificity
   )
 
@@ -100,13 +100,13 @@ const extractCategories = (
   ]
 
   /* Language */
-  const grammarAndSpellingCheck = postAnalysis.find(
+  const grammarAndSpellingCheck = analysis.find(
     ({ label }) => label === Analysis.GrammarAndSpellingCheck
   )
-  const buzzwordAndClichéDetector = postAnalysis.find(
+  const buzzwordAndClichéDetector = analysis.find(
     ({ label }) => label === Analysis.BuzzwordAndClichéDetector
   )
-  const sentimentAnalysis = postAnalysis.find(
+  const sentimentAnalysis = analysis.find(
     ({ label }) => label === Analysis.SentimentAnalysis
   )
 
@@ -117,16 +117,16 @@ const extractCategories = (
   ]
 
   /* Structure */
-  const textLengthCheck = postAnalysis.find(
+  const textLengthCheck = analysis.find(
     ({ label }) => label === Analysis.TextLengthCheck
   )
-  const toneAnalysis = postAnalysis.find(
+  const toneAnalysis = analysis.find(
     ({ label }) => label === Analysis.ToneAnalysis
   )
-  const paragraphAndSentenceStructure = postAnalysis.find(
+  const paragraphAndSentenceStructure = analysis.find(
     ({ label }) => label === Analysis.ParagraphAndSentenceStructure
   )
-  const readabilityScore = postAnalysis.find(
+  const readabilityScore = analysis.find(
     ({ label }) => label === Analysis.ReadabilityScore
   )
 

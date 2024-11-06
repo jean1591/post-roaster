@@ -17,7 +17,7 @@ type PostWithAnalysisAndSuggestions = Prisma.PostGetPayload<{
 }>
 
 export interface PostDto {
-  postAnalysis: PostAnalysis[]
+  postAnalysis: PostAnalysis
   post: Post
 }
 
@@ -83,10 +83,17 @@ const formatPost = (post: PostWithAnalysisAndSuggestions): Post => {
 
 const formatPostAnalysis = ({
   postAnalysis,
-}: PostWithAnalysisAndSuggestions): PostAnalysis[] => {
-  return postAnalysis.map(({ label, notation, suggestions }) => ({
-    label: label as Analysis,
-    notation,
-    suggestions: suggestions.map(({ suggestion }) => suggestion),
-  }))
+}: PostWithAnalysisAndSuggestions): PostAnalysis => {
+  return {
+    credibility: {
+      message: '',
+      value: 0,
+    },
+    message: '',
+    analysis: postAnalysis.map(({ label, notation, suggestions }) => ({
+      label: label as Analysis,
+      notation,
+      suggestions: suggestions.map(({ suggestion }) => suggestion),
+    })),
+  }
 }

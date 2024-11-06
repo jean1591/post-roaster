@@ -10,13 +10,13 @@ export const EngagementAnaylis = () => {
     return <></>
   }
 
-  const engagementPotential = postAnalysis.find(
+  const engagementPotential = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.EngagementPotential
   )
-  const hashtagSuggestions = postAnalysis.find(
+  const hashtagSuggestions = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.HashtagSuggestions
   )
-  const clarityAndSpecificity = postAnalysis.find(
+  const clarityAndSpecificity = postAnalysis.analysis.find(
     ({ label }) => label === Analysis.ClarityAndSpecificity
   )
 
