@@ -13,6 +13,8 @@ type PostWithAnalysisAndSuggestions = Prisma.PostGetPayload<{
         suggestions: true
       }
     }
+    credibility: true
+    message: true
   }
 }>
 
@@ -45,7 +47,11 @@ export async function GET(
 
   const post = (await prisma.post.findUnique({
     where: { id: params.cuid },
-    include: { postAnalysis: { include: { suggestions: true } } },
+    include: {
+      postAnalysis: { include: { suggestions: true } },
+      message: true,
+      credibility: true,
+    },
   })) as PostWithAnalysisAndSuggestions
 
   if (!post) {
@@ -82,14 +88,16 @@ const formatPost = (post: PostWithAnalysisAndSuggestions): Post => {
 }
 
 const formatPostAnalysis = ({
+  credibility,
+  message,
   postAnalysis,
 }: PostWithAnalysisAndSuggestions): PostAnalysis => {
   return {
     credibility: {
-      message: '',
-      value: 0,
+      message: credibility?.message ?? '',
+      value: credibility?.value ?? 0,
     },
-    message: '',
+    message: message?.message ?? '',
     analysis: postAnalysis.map(({ label, notation, suggestions }) => ({
       label: label as Analysis,
       notation,

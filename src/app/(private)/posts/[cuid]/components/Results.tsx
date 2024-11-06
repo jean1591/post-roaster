@@ -2,13 +2,13 @@
 
 import { Analysis, AnalysisItem } from '@/app/api/interfaces/post'
 
-import { Result } from './Result'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 
 export const Results = () => {
   const { postAnalysis } = useSelector((state: RootState) => state.post)
 
+  // TODO: add skeleton
   if (!postAnalysis) {
     return <></>
   }
@@ -21,19 +21,37 @@ export const Results = () => {
   } = extractCategories(postAnalysis.analysis)
 
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-      <ResultsCard label="Audience Alignment" results={audienceResults} />
-      <ResultsCard
-        label="Engagement Optimization"
-        results={engagementResults}
-      />
-      <ResultsCard label="Language Quality" results={languageResults} />
-      <ResultsCard label="Content Structure" results={structureResults} />
+    <div className="space-y-8">
+      {/* METRICS */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <Result label={'Audience'} results={audienceResults} />
+        <Result label={'Engagement'} results={engagementResults} />
+        <Result label={'Language'} results={languageResults} />
+        <Result label={'Structure'} results={structureResults} />
+      </div>
+
+      {/* MESSAGE */}
+      <div className="space-y-4 rounded-md border-[1px] border-black p-4">
+        <p className="text-xl font-bold tracking-tighter">Message</p>
+        <p className="tracking-tighter">{postAnalysis.message}</p>
+      </div>
+
+      {/* CREDIBILITY */}
+      <div className="space-y-4 rounded-md border-[1px] border-black p-4">
+        <div className="items-between flex justify-between gap-4">
+          <p className="text-xl font-bold tracking-tighter">Credibility</p>
+          <p className="text-xl font-bold tracking-tighter">
+            {postAnalysis.credibility.value}%
+          </p>
+        </div>
+
+        <p className="tracking-tighter">{postAnalysis.credibility.message}</p>
+      </div>
     </div>
   )
 }
 
-const ResultsCard = ({
+const Result = ({
   label,
   results,
 }: {
@@ -41,16 +59,18 @@ const ResultsCard = ({
   results: (AnalysisItem | undefined)[]
 }) => {
   return (
-    <div className="space-y-4 rounded-md border-[1px] border-slate-200 p-4 shadow-sm">
-      <h3 className="tracking-tigh text-lg font-bold leading-none">{label}</h3>
-
-      <div className="space-y-2">
+    <div className="space-y-4 rounded-md border-[1px] border-black p-4">
+      <p className="text-xl font-bold tracking-tighter">{label}</p>
+      <div className="flex items-center justify-between">
         {results.map((result) => (
-          <Result
-            key={result?.label}
-            label={result?.label ?? ''}
-            value={result?.notation ?? 0}
-          />
+          <div key={result?.label}>
+            <p className="text-lg font-bold tracking-tight">
+              {result?.notation}/10
+            </p>
+            <p className="text-xs text-slate-600">
+              {result?.label.split(' ')[0]}
+            </p>
+          </div>
         ))}
       </div>
     </div>
