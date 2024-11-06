@@ -1,11 +1,12 @@
 'use client'
 
+import { Tab, setTab } from '@/store/features/post/slice'
+import { resetCreatePost, setStep } from '@/store/features/createPost/slice'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { PiArrowsClockwiseBold } from 'react-icons/pi'
 import { RootState } from '@/store/store'
 import { classNames } from '@/utils/classNames'
-import { setStep } from '@/store/features/createPost/slice'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -36,6 +37,8 @@ export const StepperButtons = () => {
       const newPost = await response.json()
 
       setIsLoading(false)
+      dispatch(resetCreatePost())
+      dispatch(setTab(Tab.Summary))
       router.push(`/posts/${newPost.id}`)
     } catch (error) {
       console.error('Failed to save post', error)

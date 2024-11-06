@@ -58,6 +58,13 @@ export const createPostSlice = createSlice({
   name: 'createPostSlice',
   initialState,
   reducers: {
+    resetCreatePost: (state) => {
+      state.objective = null
+      state.persona = null
+      state.platform = null
+      state.step = 0
+      state.postContent = ''
+    },
     setObjective: (state, action: PayloadAction<Objective>) => {
       state.objective = action.payload
     },
@@ -77,6 +84,7 @@ export const createPostSlice = createSlice({
 })
 
 export const {
+  resetCreatePost,
   setObjective,
   setPersona,
   setPlatform,
