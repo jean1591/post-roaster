@@ -1,5 +1,7 @@
 'use client'
 
+import { buttonHoverTransition } from '@/design/constants'
+import { classNames } from '@/utils/classNames'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -66,7 +68,10 @@ export const RegisterForm = () => {
       />
       <button
         type="submit"
-        className="w-full rounded-md bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+        className={classNames(
+          buttonHoverTransition,
+          'w-full rounded-md border-[1px] border-black bg-black px-4 py-2 text-lg font-bold text-white hover:bg-white hover:text-black'
+        )}
       >
         Register
       </button>

@@ -1,5 +1,7 @@
 'use client'
 
+import { buttonHoverTransition } from '@/design/constants'
+import { classNames } from '@/utils/classNames'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -23,7 +25,7 @@ export const LoginForm = () => {
     if (result?.error) {
       setError('Invalid email or password')
     } else {
-      router.push('/private')
+      router.push('/dashboard')
     }
   }
 
@@ -48,7 +50,10 @@ export const LoginForm = () => {
       />
       <button
         type="submit"
-        className="w-full rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+        className={classNames(
+          buttonHoverTransition,
+          'w-full rounded-md border-[1px] border-black bg-black px-4 py-2 text-lg font-bold text-white hover:bg-white hover:text-black'
+        )}
       >
         Login
       </button>
