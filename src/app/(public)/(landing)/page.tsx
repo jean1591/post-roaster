@@ -32,7 +32,7 @@ const Navbar = () => {
       <Link
         className={classNames(
           buttonHoverTransition,
-          'rounded-md bg-white px-4 py-1 font-bold text-black hover:bg-slate-200'
+          'rounded-md border-[1px] border-black bg-white px-4 py-1 font-bold text-black hover:border-white hover:bg-black hover:text-white'
         )}
         href="/login"
       >
@@ -150,7 +150,7 @@ const HowItWork = () => {
         "Get instant, actionable feedback on tone, readability, and audience alignment. Improve every post's effectiveness without wasting time on guesswork.",
     },
     {
-      label: '3️⃣ Targeted improvements',
+      label: '3️⃣ Target improvements',
       description:
         'Receive specific suggestions for alignment and structure, tailored to boost audience engagement. Focus on what matters and let the app guide you.',
     },
@@ -192,7 +192,9 @@ const HowItWorkItem = ({
     <div className="space-y-2">
       <div className="flex items-baseline justify-start gap-2">
         <p className="text-3xl">{step.label.split(' ')[0]}</p>
-        <p className="text-lg font-medium">{step.label.split(' ')[1]}</p>
+        <p className="text-lg font-medium">
+          {step.label.split(' ').slice(1).join(' ')}
+        </p>
       </div>
       <p className="text-slate-800">{step.description}</p>
     </div>
@@ -231,15 +233,8 @@ const KeyBenefits = () => {
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
         <Benefit benefit={benefits[0]} />
-        <div className="hidden lg:block" />
         <Benefit benefit={benefits[1]} />
-        <div className="hidden lg:block" />
-
-        <div className="hidden lg:block" />
-
         <Benefit benefit={benefits[2]} />
-        <div className="hidden lg:block" />
-
         <Benefit benefit={benefits[3]} />
       </div>
     </div>
