@@ -1,11 +1,8 @@
 import { DashboardDto } from '@/app/api/dashboard/route'
 import { DataFetcher } from './components/DataFetcher'
 import { Header } from './components/Header'
-import Link from 'next/link'
 import { NotationBanner } from './components/NotationBanner'
 import { Posts } from './components/Posts'
-import { buttonHoverTransition } from '@/design/constants'
-import { classNames } from '@/utils/classNames'
 import { fetchDataFromApi } from '@/utils/fetchDataFromApi'
 
 export default async function DashboardPage() {

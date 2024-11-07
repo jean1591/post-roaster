@@ -1,7 +1,6 @@
 'use client'
 
 import { PasteTextStep } from './PasteTextStep'
-import { ReviewStep } from './ReviewStep'
 import { RootState } from '@/store/store'
 import { SelectObjectiveStep } from './SelectObjectiveStep'
 import { SelectPersonaStep } from './SelectPersonaStep'
@@ -17,7 +16,6 @@ export const Steps = () => {
       {step === 1 && <SelectPlatformStep />}
       {step === 2 && <SelectPersonaStep />}
       {step === 3 && <SelectObjectiveStep />}
-      {step === 4 && <ReviewStep />}
     </div>
   )
 }

@@ -2,7 +2,7 @@ import { bgGradient, textGradient } from '@/design/constants'
 
 import { classNames } from '@/utils/classNames'
 
-// TODO: use variable for company name and email
+const appUrl = 'https://post-roaster.com'
 
 export default function PrivacyPolicy() {
   return (
@@ -20,21 +20,20 @@ export default function PrivacyPolicy() {
 
       <div className="mt-12 space-y-8">
         <p>
-          This Privacy Policy describes the policies of Foodr, 1, Not your
-          business, Paris 75001, France, email: foodr@mailo.com, phone:
-          0123456789 on the collection, use and disclosure of your information
-          that we collect when you use our website (
-          https://www.foodr.jeanrobertou.com ). (the “Service”). By accessing or
-          using the Service, you are consenting to the collection, use and
-          disclosure of your information in accordance with this Privacy Policy.
-          If you do not consent to the same, please do not access or use the
-          Service. We may modify this Privacy Policy at any time without any
-          prior notice to you and will post the revised Privacy Policy on the
-          Service. The revised Policy will be effective 180 days from when the
-          revised Policy is posted in the Service and your continued access or
-          use of the Service after such time will constitute your acceptance of
-          the revised Privacy Policy. We therefore recommend that you
-          periodically review this page.
+          This Privacy Policy describes the policies of Post Roaster, 1, Not
+          your business, Paris 75001, France, email: post-roaster@mailo.com,
+          phone: 0123456789 on the collection, use and disclosure of your
+          information that we collect when you use our website ({appUrl}) (the
+          “Service”). By accessing or using the Service, you are consenting to
+          the collection, use and disclosure of your information in accordance
+          with this Privacy Policy. If you do not consent to the same, please do
+          not access or use the Service. We may modify this Privacy Policy at
+          any time without any prior notice to you and will post the revised
+          Privacy Policy on the Service. The revised Policy will be effective
+          180 days from when the revised Policy is posted in the Service and
+          your continued access or use of the Service after such time will
+          constitute your acceptance of the revised Privacy Policy. We therefore
+          recommend that you periodically review this page.
         </p>
 
         <div>
@@ -45,7 +44,6 @@ export default function PrivacyPolicy() {
           </p>
 
           <ul className="list-disc">
-            <li className="ml-8">Name</li>
             <li className="ml-8">Email</li>
           </ul>
         </div>
@@ -130,12 +128,12 @@ export default function PrivacyPolicy() {
           <p>
             If you have any queries or concerns about the processing of your
             information that is available with us, you may email our Grievance
-            Officer at foodr, 1, Not your business, email: foodr@mailo.com. We
-            will address your concerns in accordance with applicable law.
+            Officer at post-roaster@mailo.com. We will address your concerns in
+            accordance with applicable law.
           </p>
         </div>
 
-        <p>This policy is effective as of 01 July 2024.</p>
+        <p>This policy is effective as of 01 November 2024.</p>
       </div>
     </div>
   )

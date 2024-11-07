@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { PiPlusBold } from 'react-icons/pi'
 import { RootState } from '@/store/store'
 import { buttonHoverTransition } from '@/design/constants'
 import { classNames } from '@/utils/classNames'
@@ -21,11 +22,12 @@ export const Header = () => {
       <Link
         className={classNames(
           buttonHoverTransition,
-          'rounded-md border-[1px] border-black bg-black px-4 py-1 font-bold tracking-tight text-white hover:bg-white hover:text-black'
+          'flex items-center justify-center gap-2 rounded-md border-[1px] border-black bg-black px-4 py-1 font-bold tracking-tight text-white hover:bg-white hover:text-black'
         )}
         href="/create-post"
       >
-        Validate a new post
+        <PiPlusBold className="h-4 w-4" />
+        <p>New post</p>
       </Link>
     </div>
   )

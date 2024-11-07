@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 const metaDescription = 'Generate this using ChatGPT'
 const titleAndDefault = 'Generate this using ChatGPT'
-const appUrl = 'https://my-app-name.rb2.fr'
+const appUrl = 'https://post-roaster.com'
 
 export const metadata: Metadata = {
   title: {

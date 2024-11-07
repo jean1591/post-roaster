@@ -1,4 +1,4 @@
-import { Analysis } from '@/store/features/post/slice'
+import { Analysis } from '@/app/api/interfaces/post'
 import { Result } from './Result'
 import { analysisToDescriptionMapper } from '@/app/mappers/analysis'
 

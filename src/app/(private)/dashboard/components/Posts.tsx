@@ -1,5 +1,6 @@
 'use client'
 
+import { PiFolderPlusLight, PiPlusBold } from 'react-icons/pi'
 import { PiLinkedinLogo, PiTwitterLogo } from 'react-icons/pi'
 
 import Link from 'next/link'
@@ -16,6 +17,10 @@ export const Posts = () => {
   // TODO: add skeleton
   if (!posts) {
     return <></>
+  }
+
+  if (posts.length === 0) {
+    return <EmptyState />
   }
 
   return (
@@ -56,6 +61,29 @@ const Platform = ({ platform }: { platform: PlatformEnum }) => {
   return (
     <div className="rounded-full bg-black p-2 text-white group-hover:bg-white group-hover:text-black">
       <Icon className="h-6 w-6" />
+    </div>
+  )
+}
+
+const EmptyState = () => {
+  return (
+    <div className="flex flex-col items-center justify-center space-y-4">
+      <PiFolderPlusLight className="h-12 w-12" />
+
+      <p className="text-sm tracking-tight text-slate-600">
+        Get started by creating a new post.
+      </p>
+
+      <Link
+        className={classNames(
+          buttonHoverTransition,
+          'flex items-center justify-center gap-2 rounded-md border-[1px] border-black bg-black px-4 py-1 font-bold tracking-tight text-white hover:bg-white hover:text-black'
+        )}
+        href="/create-post"
+      >
+        <PiPlusBold className="h-4 w-4" />
+        <p>New post</p>
+      </Link>
     </div>
   )
 }

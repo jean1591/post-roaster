@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
 
-const baseUrl = 'https://jeanrobertou.com'
+const baseUrl = 'https://post-roaster.com'
 const changeFrequency = 'monthly'
 
 export default function sitemap(): MetadataRoute.Sitemap {
