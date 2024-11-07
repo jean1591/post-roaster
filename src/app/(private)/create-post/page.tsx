@@ -1,10 +1,22 @@
 import Link from 'next/link'
+import { Metadata } from 'next'
 import { StepIndicator } from './components/StepIndicator'
 import { StepperButtons } from './components/StepperButtons'
 import { Steps } from './components/Steps'
 import { Summary } from './components/Summary'
 import { buttonHoverTransition } from '@/design/constants'
 import { classNames } from '@/utils/classNames'
+import { metadata } from '@/app/layout'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    ...metadata,
+    title: 'Create post - Post Roaster',
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_URL}/create-post`,
+    },
+  }
+}
 
 // TODO: at "Validate Post", change page to display loader animation
 export default async function CreatePostPage() {

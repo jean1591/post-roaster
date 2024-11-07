@@ -10,23 +10,22 @@ import { classNames } from '@/utils/classNames'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const metaDescription = 'Generate this using ChatGPT'
-const titleAndDefault = 'Generate this using ChatGPT'
+const metaDescription =
+  'Increase reach and save time with AI-driven content optimization. Align posts with your audience, improve readability, and publish at peak times'
+const title = 'Boost engagement with tailored content'
 const appUrl = 'https://post-roaster.com'
 
 export const metadata: Metadata = {
-  title: {
-    template: titleAndDefault,
-    default: titleAndDefault,
-  },
+  title: title,
   description: metaDescription,
-  keywords: 'Generate this using ChatGPT',
+  keywords:
+    'AI content optimization, audience alignment, content engagement, social media optimization, post readability, AI-driven insights, publish timing, content strategy, post analysis, engagement boost, content improvement, social media marketing, AI tools for content, digital engagement, audience targeting',
   metadataBase: new URL(appUrl),
   openGraph: {
-    title: titleAndDefault,
+    title: title,
     description: metaDescription,
     url: appUrl,
-    siteName: titleAndDefault,
+    siteName: title,
     images: [
       {
         url: '/hero-profile.jpeg',
@@ -37,15 +36,18 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: {
-    title: titleAndDefault,
+    title: title,
     card: 'summary',
     description: metaDescription,
     images: [
       {
         url: `${appUrl}/hero-profile.png`,
-        alt: titleAndDefault,
+        alt: title,
       },
     ],
+  },
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_URL!}`,
   },
 }
 

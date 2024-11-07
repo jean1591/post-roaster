@@ -1,11 +1,27 @@
 import { DataFetcher } from './components/DataFetcher'
 import Link from 'next/link'
+import { Metadata } from 'next'
 import { PostDto } from '@/app/api/posts/[cuid]/route'
 import { PostOverview } from './components/PostOverview'
 import { Tabs } from './components/Tabs'
 import { buttonHoverTransition } from '@/design/constants'
 import { classNames } from '@/utils/classNames'
 import { fetchDataFromApi } from '@/utils/fetchDataFromApi'
+import { metadata } from '@/app/layout'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { cuid: string }
+}): Promise<Metadata> {
+  return {
+    ...metadata,
+    title: 'Post Details - Post Roaster',
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_URL}/posts/${params.cuid}`,
+    },
+  }
+}
 
 export default async function PostPage({
   params,
