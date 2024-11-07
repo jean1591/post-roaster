@@ -8,13 +8,11 @@ export default function Home() {
     <div className="space-y-20 lg:space-y-40">
       <Navbar />
 
-      <div className="space-y-20 lg:mt-20 lg:space-y-40">
-        <Hero />
-        <Features />
-        <HowItWork />
-        <KeyBenefits />
-        <Cta />
-      </div>
+      <Hero />
+      <Features />
+      <HowItWork />
+      <KeyBenefits />
+      <Cta />
 
       <Footer />
     </div>
@@ -47,15 +45,17 @@ const Navbar = () => {
 const Hero = () => {
   return (
     <div className="grid grid-cols-1 gap-12 px-4 lg:grid-cols-2 lg:gap-4 lg:px-8">
-      <div className="flex flex-col items-center justify-center space-y-8 lg:items-start lg:space-y-12">
-        <p className="text-balance text-center text-5xl font-bold leading-none tracking-tighter lg:text-left">
-          Create, analyze, and perfect your posts with ease
-        </p>
+      <div className="flex flex-col items-center justify-center space-y-12 lg:items-start">
+        <div className="space-y-4">
+          <p className="text-balance text-center text-5xl font-bold leading-none tracking-tighter lg:text-left">
+            Higher engagement with content tailored to your audience
+          </p>
 
-        <p className="text-balance text-center text-2xl font-medium leading-none tracking-tighter lg:text-left">
-          Boost your content’s impact by targeting the right audience, platform,
-          and tone — all in one tool.
-        </p>
+          <p className="text-balance text-center text-2xl font-medium leading-none tracking-tighter lg:text-left">
+            Transform your posts into powerful tools for connection and growth.
+            Reach the right audience, with the right message, at the right time.
+          </p>
+        </div>
 
         <Link
           className={classNames(
@@ -84,19 +84,19 @@ const Hero = () => {
 const Features = () => {
   const features = [
     {
-      label: '🚀 Tailored content improvements',
+      label: '🧠 Smart content optimization',
       description:
-        'Receive real-time, AI-driven suggestions to optimize your posts for readability, tone, and platform specifics, ensuring every post resonates with your intended audience.',
+        'Save time with AI-driven suggestions that improve readability, tone, and clarity. Every piece of feedback is designed to make your content more engaging and effective.',
     },
     {
-      label: '✅ Audience alignment check',
+      label: '✅ Audience targeting made easy',
       description:
-        'Make sure your content speaks to the right people. Our analysis tool aligns your post with audience persona, platform, and objective, so your message lands effectively.',
+        'Align your posts with the right audience, platform, and objective. Our analysis ensures your message resonates deeply with the people who matter most.',
     },
     {
-      label: '🎯 Performance scoring',
+      label: '🎯 Performance scoring for continuous improvement',
       description:
-        'Gain insights with our scoring system on elements like tone, length, readability, and alignment to help you consistently create high-quality posts.',
+        "Get a clear view of your content's strengths and areas for improvement with our scoring system. Refine your posts over time to consistently create high-quality, engaging content.",
     },
   ]
 
@@ -124,12 +124,15 @@ const Feature = ({
   }
 }) => {
   return (
-    <div className="space-y-4 rounded-md border-[1px] border-white p-4">
-      <p className="text-lg font-bold leading-none tracking-tight">
-        {feature.label}
-      </p>
+    <div className="space-y-4 rounded-md border-[1px] border-white p-8">
+      <p className="text-4xl">{feature.label.split(' ')[0]}</p>
 
-      <p className="leading-none tracking-tight">{feature.description}</p>
+      <div className="space-y-2">
+        <p className="text-lg font-medium">
+          {feature.label.split(' ').slice(1).join(' ')}
+        </p>
+        <p className="text-slate-200">{feature.description}</p>
+      </div>
     </div>
   )
 }
@@ -144,12 +147,12 @@ const HowItWork = () => {
     {
       label: '2️⃣ Analyze and optimize',
       description:
-        "Run the content through our analyzer to receive detailed feedback on readability, tone, structure, and audience alignment. Get actionable suggestions to enhance your content's impact.",
+        "Get instant, actionable feedback on tone, readability, and audience alignment. Improve every post's effectiveness without wasting time on guesswork.",
     },
     {
       label: '3️⃣ Targeted improvements',
       description:
-        "Use personalized recommendations to tweak your post's tone, style, and structure. Our system highlights any mismatches with your intended audience or platform, allowing you to fine-tune until you reach optimal alignment.",
+        'Receive specific suggestions for alignment and structure, tailored to boost audience engagement. Focus on what matters and let the app guide you.',
     },
   ]
 
@@ -160,7 +163,7 @@ const HowItWork = () => {
       </p>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <div className="flex flex-col items-center justify-center space-y-8 lg:items-start">
+        <div className="flex flex-col items-center justify-center space-y-8 lg:items-start lg:space-y-12">
           {steps.map((step) => (
             <HowItWorkItem key={step.label} step={step} />
           ))}
@@ -186,11 +189,12 @@ const HowItWorkItem = ({
   step: { label: string; description: string }
 }) => {
   return (
-    <div className="space-y-4">
-      <p className="text-lg font-bold leading-none tracking-tight">
-        {step.label}
-      </p>
-      <p className="leading-none tracking-tight">{step.description}</p>
+    <div className="space-y-2">
+      <div className="flex items-baseline justify-start gap-2">
+        <p className="text-3xl">{step.label.split(' ')[0]}</p>
+        <p className="text-lg font-medium">{step.label.split(' ')[1]}</p>
+      </div>
+      <p className="text-slate-800">{step.description}</p>
     </div>
   )
 }
@@ -198,7 +202,7 @@ const HowItWorkItem = ({
 const KeyBenefits = () => {
   const benefits = [
     {
-      label: '📈 Increase engagement',
+      label: '📈 Increase engagement and reach',
       description:
         'Ensure every post is crafted to capture attention and drive interaction. With targeted suggestions, you’ll create content that truly resonates.',
     },
@@ -215,7 +219,7 @@ const KeyBenefits = () => {
     {
       label: '🚀 Boost credibility and trust',
       description:
-        'Perfectly align your messaging and structure to enhance your credibility. Our tool helps you refine your message to build trust with your audience.',
+        'Improve your post quality with recommendations that make your messaging clear, polished, and professional. Build credibility with every interaction.',
     },
   ]
 
@@ -248,14 +252,15 @@ const Benefit = ({
   benefit: { label: string; description: string }
 }) => {
   return (
-    <div className="space-y-4 rounded-md border-[1px] border-black p-4">
-      <p className="text-lg font-bold leading-none tracking-tight">
-        {benefit.label}
-      </p>
+    <div className="space-y-4 rounded-md border-[1px] border-black p-8">
+      <p className="text-4xl">{benefit.label.split(' ')[0]}</p>
 
-      <p className="text-wrap leading-none tracking-tight">
-        {benefit.description}
-      </p>
+      <div className="space-y-2">
+        <p className="text-lg font-medium">
+          {benefit.label.split(' ').slice(1).join(' ')}
+        </p>
+        <p className="text-slate-800">{benefit.description}</p>
+      </div>
     </div>
   )
 }
@@ -265,12 +270,13 @@ const Cta = () => {
     <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 space-y-12 rounded-none bg-black p-8 text-white lg:grid-cols-2 lg:rounded-md lg:p-16">
       <div className="space-y-8">
         <p className="text-left text-3xl font-bold leading-none tracking-tight">
-          Ready to create content that connects ?
+          Ready to create content that drives results ?
         </p>
 
         <p className="text-balance text-left text-lg font-medium leading-none tracking-tighter lg:text-left">
-          Get started today and transform your posts into powerful engagement
-          tools. Elevate your content creation and see the difference it makes.
+          Start optimizing your posts today and see the difference high-quality,
+          targeted content can make. Engage your audience, increase your reach,
+          and grow your brand.
         </p>
       </div>
 
