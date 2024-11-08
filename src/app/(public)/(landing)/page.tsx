@@ -47,14 +47,14 @@ const Hero = () => {
     <div className="grid grid-cols-1 gap-12 px-4 lg:grid-cols-2 lg:gap-4 lg:px-8">
       <div className="flex flex-col items-center justify-center space-y-12 lg:items-start">
         <div className="space-y-4">
-          <p className="text-balance text-center text-5xl font-bold leading-none tracking-tighter lg:text-left">
+          <h1 className="text-balance text-center text-5xl font-bold leading-none tracking-tighter lg:text-left">
             Higher engagement with content tailored to your audience
-          </p>
+          </h1>
 
-          <p className="text-balance text-center text-2xl font-medium leading-none tracking-tighter lg:text-left">
+          <h2 className="text-balance text-center text-2xl font-medium leading-none tracking-tighter lg:text-left">
             Transform your posts into powerful tools for connection and growth.
             Reach the right audience, with the right message, at the right time.
-          </p>
+          </h2>
         </div>
 
         <Link

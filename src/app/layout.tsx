@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 const metaDescription =
   'Increase reach and save time with AI-driven content optimization. Align posts with your audience, improve readability, and publish at peak times'
-const title = 'Boost engagement with tailored content'
+const title = 'Post Roaster - Boost engagement with tailored content'
 const appUrl = 'https://post-roaster.com'
 
 export const metadata: Metadata = {
