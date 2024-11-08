@@ -1,18 +1,20 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { PiCheckBold } from 'react-icons/pi'
 import { buttonHoverTransition } from '@/design/constants'
 import { classNames } from '@/utils/classNames'
 
 export default function Home() {
   return (
-    <div className="space-y-20 lg:space-y-40">
+    <div className="space-y-20">
       <Navbar />
 
-      <Hero />
-      <Features />
-      <HowItWork />
-      <KeyBenefits />
-      <Cta />
+      <div className="space-y-20 lg:space-y-40">
+        <Hero />
+        <Features />
+        <HowItWorks />
+        <Cta />
+      </div>
 
       <Footer />
     </div>
@@ -23,7 +25,7 @@ const Navbar = () => {
   return (
     <div className="flex items-center justify-between bg-black p-4 text-white lg:px-8">
       <Link
-        className="text-lg font-extrabold leading-none tracking-tight"
+        className="text-lg font-extrabold leading-tight tracking-tight"
         href="/"
       >
         Post Roaster
@@ -44,40 +46,64 @@ const Navbar = () => {
 
 const Hero = () => {
   return (
-    <div className="grid grid-cols-1 gap-12 px-4 lg:grid-cols-2 lg:gap-4 lg:px-8">
-      <div className="flex flex-col items-center justify-center space-y-12 lg:items-start">
-        <div className="space-y-4">
-          <h1 className="text-balance text-center text-5xl font-bold leading-none tracking-tighter lg:text-left">
-            Higher engagement with content tailored to your audience
+    <Container>
+      <div className="space-y-16">
+        <div className="space-y-12">
+          <h1 className="text-balance text-center text-5xl font-extrabold leading-tight tracking-tight">
+            Higher engagement with content tailored to{' '}
+            <span className="underline">your audience</span>
           </h1>
 
-          <h2 className="text-balance text-center text-2xl font-medium leading-none tracking-tighter lg:text-left">
-            Transform your posts into powerful tools for connection and growth.
-            Reach the right audience, with the right message, at the right time.
-          </h2>
+          <div className="mx-auto max-w-sm">
+            <h2 className="text-balance text-left text-xl font-medium leading-tight tracking-tight">
+              Actionable insights for your posts:
+            </h2>
+
+            <div className="mt-4 space-y-1 text-slate-700">
+              <div className="flex items-center justify-start gap-2">
+                <PiCheckBold className="text-black" />
+                <p>Increase engagement and reach</p>
+              </div>
+              <div className="flex items-center justify-start gap-2">
+                <PiCheckBold className="text-black" />
+                <p>Save time and effort</p>
+              </div>
+              <div className="flex items-center justify-start gap-2">
+                <PiCheckBold className="text-black" />
+                <p>Improve content quality</p>
+              </div>
+              <div className="flex items-center justify-start gap-2">
+                <PiCheckBold className="text-black" />
+                <p>Boost credibility and trust</p>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-col items-center justify-center space-y-12 lg:items-start">
+              <Link
+                className={classNames(
+                  buttonHoverTransition,
+                  'rounded-md border-[1px] border-black bg-black px-12 py-2 text-base font-medium text-white hover:bg-white hover:text-black'
+                )}
+                href="/register"
+              >
+                Stop posting in the dark
+              </Link>
+            </div>
+          </div>
         </div>
 
-        <Link
-          className={classNames(
-            buttonHoverTransition,
-            'rounded-md border-[1px] border-black bg-black px-16 py-4 text-lg font-bold text-white hover:bg-white hover:text-black'
-          )}
-          href="/register"
-        >
-          Check your post !
-        </Link>
+        <div className="flex items-center justify-center rounded-md border-4 border-black p-4">
+          <Image
+            src="/post-analysis.webp"
+            alt="example of a post audience analysis"
+            width={1000}
+            height={1000}
+            fetchPriority="high"
+            className="object-cover"
+          />
+        </div>
       </div>
-
-      <div className="flex items-center justify-center rounded-md border-[1px] border-black p-4">
-        <Image
-          src="/hero.webp"
-          alt="example of a post audience analysis"
-          width={800}
-          height={600}
-          className="object-cover"
-        />
-      </div>
-    </div>
+    </Container>
   )
 }
 
@@ -85,32 +111,34 @@ const Features = () => {
   const features = [
     {
       label: '🧠 Smart content optimization',
-      description:
-        'Save time with AI-driven suggestions that improve readability, tone, and clarity. Every piece of feedback is designed to make your content more engaging and effective.',
+      description: 'Suggestions to enhance your content and boost engagement.',
     },
     {
       label: '✅ Audience targeting made easy',
       description:
-        'Align your posts with the right audience, platform, and objective. Our analysis ensures your message resonates deeply with the people who matter most.',
+        'Match content with your ideal audience using data-driven insights.',
     },
     {
       label: '🎯 Performance scoring for continuous improvement',
-      description:
-        "Get a clear view of your content's strengths and areas for improvement with our scoring system. Refine your posts over time to consistently create high-quality, engaging content.",
+      description: 'Track and optimize your posts with actionable metrics.',
     },
   ]
 
   return (
-    <div className="space-y-12 bg-black p-4 py-8 text-white lg:px-8 lg:py-20">
-      <p className="text-center text-3xl font-bold leading-none tracking-tight">
-        Features
-      </p>
+    <div className="bg-black py-12 text-white">
+      <Container>
+        <div className="space-y-12">
+          <p className="text-center text-lg font-medium uppercase leading-tight tracking-tight">
+            Features
+          </p>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {features.map((feature) => (
-          <Feature key={feature.label} feature={feature} />
-        ))}
-      </div>
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {features.map((feature) => (
+              <Feature key={feature.label} feature={feature} />
+            ))}
+          </div>
+        </div>
+      </Container>
     </div>
   )
 }
@@ -124,7 +152,7 @@ const Feature = ({
   }
 }) => {
   return (
-    <div className="space-y-4 rounded-md border-[1px] border-white p-8">
+    <div className="space-y-4 rounded-md border-4 border-white p-8">
       <p className="text-4xl">{feature.label.split(' ')[0]}</p>
 
       <div className="space-y-2">
@@ -137,49 +165,37 @@ const Feature = ({
   )
 }
 
-const HowItWork = () => {
+const HowItWorks = () => {
   const steps = [
     {
       label: '1️⃣ Create content',
-      description:
-        "Start by drafting a new post directly in the app or paste content you've already created.",
+      description: 'Draft a new post or paste content.',
     },
     {
       label: '2️⃣ Analyze and optimize',
-      description:
-        "Get instant, actionable feedback on tone, readability, and audience alignment. Improve every post's effectiveness without wasting time on guesswork.",
+      description: 'No guesswork, get instant and actionable feedback.',
     },
     {
       label: '3️⃣ Target improvements',
       description:
-        'Receive specific suggestions for alignment and structure, tailored to boost audience engagement. Focus on what matters and let the app guide you.',
+        'Focus on what matters and use suggestions to boost objectives.',
     },
   ]
 
   return (
-    <div className="space-y-12 px-4 lg:px-8">
-      <p className="text-center text-3xl font-bold leading-none tracking-tight">
-        How the product works ?
-      </p>
+    <Container>
+      <div className="space-y-12">
+        <p className="text-center text-lg font-medium uppercase leading-tight tracking-tight">
+          How it works ?
+        </p>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <div className="flex flex-col items-center justify-center space-y-8 lg:items-start lg:space-y-12">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {steps.map((step) => (
             <HowItWorkItem key={step.label} step={step} />
           ))}
         </div>
-
-        <div className="flex items-center justify-center rounded-md border-[1px] border-black p-4">
-          <Image
-            src="/post-analysis.webp"
-            alt="example of a post summary analysis"
-            width={600}
-            height={450}
-            className="object-cover"
-          />
-        </div>
       </div>
-    </div>
+    </Container>
   )
 }
 
@@ -189,9 +205,9 @@ const HowItWorkItem = ({
   step: { label: string; description: string }
 }) => {
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 rounded-md border-4 border-black p-8">
       <div className="flex items-baseline justify-start gap-2">
-        <p className="text-3xl">{step.label.split(' ')[0]}</p>
+        <p className="text-4xl">{step.label.split(' ')[0]}</p>
         <p className="text-lg font-medium">
           {step.label.split(' ').slice(1).join(' ')}
         </p>
@@ -201,77 +217,16 @@ const HowItWorkItem = ({
   )
 }
 
-const KeyBenefits = () => {
-  const benefits = [
-    {
-      label: '📈 Increase engagement and reach',
-      description:
-        'Ensure every post is crafted to capture attention and drive interaction. With targeted suggestions, you’ll create content that truly resonates.',
-    },
-    {
-      label: '⏱️ Save time and effort',
-      description:
-        'Streamline the process of optimizing posts with built-in analytics and auto-generated suggestions, so you can spend more time on what matters.',
-    },
-    {
-      label: '💪🏼 Improve content quality',
-      description:
-        'From grammar checks to tone adjustments, our analysis tools improve the overall quality of your posts, making them more professional and polished.',
-    },
-    {
-      label: '🚀 Boost credibility and trust',
-      description:
-        'Improve your post quality with recommendations that make your messaging clear, polished, and professional. Build credibility with every interaction.',
-    },
-  ]
-
-  return (
-    <div className="space-y-12 px-4 lg:px-8">
-      <p className="text-center text-3xl font-bold leading-none tracking-tight">
-        Key benefits
-      </p>
-
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-        <Benefit benefit={benefits[0]} />
-        <Benefit benefit={benefits[1]} />
-        <Benefit benefit={benefits[2]} />
-        <Benefit benefit={benefits[3]} />
-      </div>
-    </div>
-  )
-}
-
-const Benefit = ({
-  benefit,
-}: {
-  benefit: { label: string; description: string }
-}) => {
-  return (
-    <div className="space-y-4 rounded-md border-[1px] border-black p-8">
-      <p className="text-4xl">{benefit.label.split(' ')[0]}</p>
-
-      <div className="space-y-2">
-        <p className="text-lg font-medium">
-          {benefit.label.split(' ').slice(1).join(' ')}
-        </p>
-        <p className="text-slate-800">{benefit.description}</p>
-      </div>
-    </div>
-  )
-}
-
 const Cta = () => {
   return (
-    <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 space-y-12 rounded-none bg-black p-8 text-white lg:grid-cols-2 lg:rounded-md lg:p-16">
+    <div className="mx-auto max-w-4xl space-y-8 rounded-md bg-black p-8 text-white lg:p-16">
       <div className="space-y-8">
-        <p className="text-left text-3xl font-bold leading-none tracking-tight">
+        <p className="text-center text-3xl font-extrabold leading-tight tracking-tight">
           Ready to create content that drives results ?
         </p>
 
-        <p className="text-balance text-left text-lg font-medium leading-none tracking-tighter lg:text-left">
-          Start optimizing your posts today and see the difference high-quality,
-          targeted content can make. Engage your audience, increase your reach,
-          and grow your brand.
+        <p className="text-balance text-center text-xl font-medium leading-tight tracking-tight">
+          Grow your brand with better content.
         </p>
       </div>
 
@@ -294,7 +249,7 @@ const Footer = () => {
   return (
     <div className="flex items-center justify-between bg-black p-4 py-8 text-white lg:px-8">
       <Link
-        className="text-lg font-extrabold leading-none tracking-tight"
+        className="text-lg font-extrabold leading-tight tracking-tight"
         href="/"
       >
         Post Roaster
@@ -320,4 +275,8 @@ const Footer = () => {
       </div>
     </div>
   )
+}
+
+const Container = ({ children }: { children: React.ReactNode }) => {
+  return <div className="mx-auto max-w-6xl">{children}</div>
 }
