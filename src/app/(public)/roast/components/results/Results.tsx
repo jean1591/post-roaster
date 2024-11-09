@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux'
 export const Results = () => {
   const { postAnalysis } = useSelector((state: RootState) => state.post)
 
-  // TODO: add skeleton
   if (!postAnalysis) {
     return <></>
   }

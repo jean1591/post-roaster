@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux'
 export const ResultsPanel = () => {
   const { postId } = useSelector((state: RootState) => state.post)
 
-  // TODO: add loading state
   if (!postId) {
     return <></>
   }

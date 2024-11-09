@@ -1,5 +1,4 @@
 import { Container } from '../components/Container'
-import Features from './components/Features'
 import { Footer } from '../components/Footer'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,8 +14,7 @@ export default function Home() {
 
       <div className="space-y-20 lg:space-y-40">
         <Hero />
-        <Features />
-        <HowItWorks />
+        {/* Add <Features /> */}
         <Cta />
       </div>
 
@@ -88,58 +86,6 @@ const Hero = () => {
   )
 }
 
-const HowItWorks = () => {
-  const steps = [
-    {
-      label: '1️⃣ Create content',
-      description: 'Draft a new post or paste content.',
-    },
-    {
-      label: '2️⃣ Analyze and optimize',
-      description: 'No guesswork, get instant and actionable feedback.',
-    },
-    {
-      label: '3️⃣ Target improvements',
-      description:
-        'Focus on what matters and use suggestions to boost objectives.',
-    },
-  ]
-
-  return (
-    <Container>
-      <div className="space-y-12">
-        <p className="text-center text-lg font-medium uppercase leading-tight tracking-tight">
-          How it works ?
-        </p>
-
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {steps.map((step) => (
-            <HowItWorkItem key={step.label} step={step} />
-          ))}
-        </div>
-      </div>
-    </Container>
-  )
-}
-
-const HowItWorkItem = ({
-  step,
-}: {
-  step: { label: string; description: string }
-}) => {
-  return (
-    <div className="space-y-2 rounded-md border-4 border-black p-8">
-      <div className="flex items-baseline justify-start gap-2">
-        <p className="text-4xl">{step.label.split(' ')[0]}</p>
-        <p className="text-lg font-medium">
-          {step.label.split(' ').slice(1).join(' ')}
-        </p>
-      </div>
-      <p className="text-slate-800">{step.description}</p>
-    </div>
-  )
-}
-
 const Cta = () => {
   return (
     <div className="mx-auto max-w-4xl space-y-8 rounded-md bg-black p-8 text-white lg:p-16">
@@ -149,7 +95,7 @@ const Cta = () => {
         </p>
 
         <p className="text-balance text-center text-xl font-medium leading-tight tracking-tight">
-          Grow your brand with better content.
+          Grow with better content.
         </p>
       </div>
 
@@ -161,7 +107,7 @@ const Cta = () => {
           )}
           href="/roast"
         >
-          Try, it's free
+          Boost your engagement
         </Link>
       </div>
     </div>

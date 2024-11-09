@@ -12,7 +12,6 @@ import { useSelector } from 'react-redux'
 export const Tab = () => {
   const { postAnalysis, tab } = useSelector((state: RootState) => state.post)
 
-  // TODO: create skeleton
   if (!postAnalysis) {
     return <></>
   }
