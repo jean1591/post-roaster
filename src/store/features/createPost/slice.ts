@@ -33,16 +33,11 @@ export enum Platform {
   Twitter = 'Twitter',
 }
 
-// TODO: export this as is, not within slice
-const steps = ['Text', 'Platform', 'Persona', 'Objective']
-
 export interface createPostSlice {
-  objective: Objective | null
-  persona: Persona | null
+  objective: string | null
+  persona: string | null
   platform: Platform | null
   postContent: string
-  step: number
-  steps: typeof steps
 }
 
 const initialState: createPostSlice = {
@@ -50,8 +45,6 @@ const initialState: createPostSlice = {
   persona: null,
   platform: null,
   postContent: '',
-  step: 0,
-  steps,
 }
 
 export const createPostSlice = createSlice({
@@ -62,20 +55,16 @@ export const createPostSlice = createSlice({
       state.objective = null
       state.persona = null
       state.platform = null
-      state.step = 0
       state.postContent = ''
     },
-    setObjective: (state, action: PayloadAction<Objective>) => {
+    setObjective: (state, action: PayloadAction<string>) => {
       state.objective = action.payload
     },
-    setPersona: (state, action: PayloadAction<Persona>) => {
+    setPersona: (state, action: PayloadAction<string>) => {
       state.persona = action.payload
     },
     setPlatform: (state, action: PayloadAction<Platform>) => {
       state.platform = action.payload
-    },
-    setStep: (state, action: PayloadAction<number>) => {
-      state.step = action.payload
     },
     setPostContent: (state, action: PayloadAction<string>) => {
       state.postContent = action.payload
@@ -88,7 +77,6 @@ export const {
   setObjective,
   setPersona,
   setPlatform,
-  setStep,
   setPostContent,
 } = createPostSlice.actions
 

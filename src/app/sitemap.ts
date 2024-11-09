@@ -11,5 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency,
       priority: 1,
     },
+    {
+      url: `${baseUrl}/roast`,
+      lastModified: new Date(),
+      changeFrequency,
+      priority: 0.9,
+    },
   ]
 }
