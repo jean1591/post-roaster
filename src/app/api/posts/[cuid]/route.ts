@@ -34,17 +34,6 @@ export async function GET(
 ): Promise<NextResponse<PostDto | Error>> {
   logger.info(endpointFormatter(request))
 
-  const session = await getSession()
-
-  if (!session) {
-    console.error('Session not found')
-    throw new Error('Session not found')
-  }
-
-  const {
-    user: { id: userId },
-  } = session
-
   const post = (await prisma.post.findUnique({
     where: { id: params.cuid },
     include: {
@@ -56,15 +45,8 @@ export async function GET(
 
   if (!post) {
     return NextResponse.json(
-      { error: 'Post not found', data: { postId: params.cuid, userId } },
+      { error: 'Post not found', data: { postId: params.cuid } },
       { status: 404 }
-    )
-  }
-
-  if (post.userId !== userId) {
-    return NextResponse.json(
-      { error: 'Unauthorized access to post', data: { post, userId } },
-      { status: 403 }
     )
   }
 
@@ -83,7 +65,6 @@ const formatPost = (post: PostWithAnalysisAndSuggestions): Post => {
     persona: post.persona,
     platform: post.platform,
     updatedAt: post.updatedAt,
-    userId: post.userId,
   }
 }
 

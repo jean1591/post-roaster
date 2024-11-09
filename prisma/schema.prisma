@@ -18,7 +18,6 @@ model User {
     updatedAt     DateTime  @updatedAt
     accounts      Account[]
     sessions      Session[]
-    Post          Post[]
 }
 
 model Account {
@@ -64,12 +63,10 @@ model Post {
     persona   String
     platform  String
     updatedAt DateTime @updatedAt
-    userId    String
 
     credibility  Credibility?
     message      Message?
     postAnalysis PostAnalysis[]
-    user         User           @relation(fields: [userId], references: [id])
 }
 
 model Credibility {

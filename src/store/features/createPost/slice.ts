@@ -37,8 +37,8 @@ export enum Platform {
 const steps = ['Text', 'Platform', 'Persona', 'Objective']
 
 export interface createPostSlice {
-  objective: Objective | null
-  persona: Persona | null
+  objective: string | null
+  persona: string | null
   platform: Platform | null
   postContent: string
   step: number
@@ -65,10 +65,10 @@ export const createPostSlice = createSlice({
       state.step = 0
       state.postContent = ''
     },
-    setObjective: (state, action: PayloadAction<Objective>) => {
+    setObjective: (state, action: PayloadAction<string>) => {
       state.objective = action.payload
     },
-    setPersona: (state, action: PayloadAction<Persona>) => {
+    setPersona: (state, action: PayloadAction<string>) => {
       state.persona = action.payload
     },
     setPlatform: (state, action: PayloadAction<Platform>) => {

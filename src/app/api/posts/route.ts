@@ -11,36 +11,12 @@ import prisma from '@/lib/prisma'
 export async function POST(request: NextRequest) {
   logger.info(endpointFormatter(request))
   try {
-    const session = await getSession()
-
-    if (!session) {
-      return NextResponse.json({ error: 'Session not found' }, { status: 403 })
-    }
-
-    const {
-      user: { id: userId },
-    } = session
-
-    const existingUser = await prisma.user.findUnique({
-      where: { id: userId },
-    })
-
-    if (!existingUser) {
-      console.error(`No user found for id ${userId}`)
-
-      return NextResponse.json(
-        { error: `No user found for id ${userId}` },
-        { status: 404 }
-      )
-    }
-
     const { objective, persona, platform, postContent } = await request.json()
     const newPost = await validatePost({
       objective,
       persona,
       platform,
       postContent,
-      userId,
     })
 
     return NextResponse.json(newPost)
@@ -58,17 +34,20 @@ interface PostDetails {
   persona: Persona
   platform: Platform
   postContent: string
-  userId: string
 }
 const validatePost = async ({
   objective,
   persona,
   platform,
   postContent,
-  userId,
 }: PostDetails) => {
   const newPost = await prisma.post.create({
-    data: { objective, persona, platform, content: postContent, userId },
+    data: {
+      objective,
+      persona,
+      platform,
+      content: postContent,
+    },
   })
 
   const prompt = generatePrompt({ objective, persona, platform, postContent })

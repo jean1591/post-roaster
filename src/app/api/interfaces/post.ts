@@ -6,7 +6,6 @@ export interface Post {
   persona: string
   platform: string
   updatedAt: Date
-  userId: string
 }
 
 export enum Analysis {

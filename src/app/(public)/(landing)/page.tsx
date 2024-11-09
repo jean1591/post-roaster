@@ -1,5 +1,8 @@
+import { Container } from '../components/Container'
+import Features from './components/Features'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Navbar } from '../components/Navbar'
 import { PiCheckBold } from 'react-icons/pi'
 import { buttonHoverTransition } from '@/design/constants'
 import { classNames } from '@/utils/classNames'
@@ -17,29 +20,6 @@ export default function Home() {
       </div>
 
       <Footer />
-    </div>
-  )
-}
-
-const Navbar = () => {
-  return (
-    <div className="flex items-center justify-between bg-black p-4 text-white lg:px-8">
-      <Link
-        className="text-lg font-extrabold leading-tight tracking-tight"
-        href="/"
-      >
-        Post Roaster
-      </Link>
-
-      <Link
-        className={classNames(
-          buttonHoverTransition,
-          'rounded-md border-[1px] border-black bg-white px-4 py-1 font-bold text-black hover:border-white hover:bg-black hover:text-white'
-        )}
-        href="/login"
-      >
-        Login
-      </Link>
     </div>
   )
 }
@@ -84,7 +64,7 @@ const Hero = () => {
                   buttonHoverTransition,
                   'rounded-md border-[1px] border-black bg-black px-12 py-2 text-base font-medium text-white hover:bg-white hover:text-black'
                 )}
-                href="/register"
+                href="/roast"
               >
                 Stop posting in the dark
               </Link>
@@ -104,64 +84,6 @@ const Hero = () => {
         </div>
       </div>
     </Container>
-  )
-}
-
-const Features = () => {
-  const features = [
-    {
-      label: '🧠 Smart content optimization',
-      description: 'Suggestions to enhance your content and boost engagement.',
-    },
-    {
-      label: '✅ Audience targeting made easy',
-      description:
-        'Match content with your ideal audience using data-driven insights.',
-    },
-    {
-      label: '🎯 Performance scoring for continuous improvement',
-      description: 'Track and optimize your posts with actionable metrics.',
-    },
-  ]
-
-  return (
-    <div className="bg-black py-12 text-white">
-      <Container>
-        <div className="space-y-12">
-          <p className="text-center text-lg font-medium uppercase leading-tight tracking-tight">
-            Features
-          </p>
-
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            {features.map((feature) => (
-              <Feature key={feature.label} feature={feature} />
-            ))}
-          </div>
-        </div>
-      </Container>
-    </div>
-  )
-}
-
-const Feature = ({
-  feature,
-}: {
-  feature: {
-    label: string
-    description: string
-  }
-}) => {
-  return (
-    <div className="space-y-4 rounded-md border-4 border-white p-8">
-      <p className="text-4xl">{feature.label.split(' ')[0]}</p>
-
-      <div className="space-y-2">
-        <p className="text-lg font-medium">
-          {feature.label.split(' ').slice(1).join(' ')}
-        </p>
-        <p className="text-slate-200">{feature.description}</p>
-      </div>
-    </div>
   )
 }
 
@@ -236,9 +158,9 @@ const Cta = () => {
             buttonHoverTransition,
             'rounded-md border-[1px] border-black bg-white px-16 py-4 text-lg font-bold text-black hover:border-white hover:bg-black hover:text-white'
           )}
-          href="/register"
+          href="/roast"
         >
-          Start free trial
+          Try, it's free
         </Link>
       </div>
     </div>
@@ -275,8 +197,4 @@ const Footer = () => {
       </div>
     </div>
   )
-}
-
-const Container = ({ children }: { children: React.ReactNode }) => {
-  return <div className="mx-auto max-w-6xl">{children}</div>
 }
