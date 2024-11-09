@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { endpointFormatter, logger } from '../../utils/logger'
 
 import { Prisma } from '@prisma/client'
-import { getSession } from '../../auth/[...nextauth]/authOptions'
 import prisma from '@/lib/prisma'
 
 type PostWithAnalysisAndSuggestions = Prisma.PostGetPayload<{

@@ -4,7 +4,6 @@ import { endpointFormatter, logger } from '../utils/logger'
 
 import { PostAnalysis } from '../interfaces/post'
 import { getOpenAiData } from '../utils/getOpenAiData'
-import { getSession } from '../auth/[...nextauth]/authOptions'
 import { openAiResponseToJsonFormatter } from '../utils/openAiResponseFormater'
 import prisma from '@/lib/prisma'
 
