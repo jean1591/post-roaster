@@ -35,14 +35,18 @@ export enum Platform {
 
 export interface createPostSlice {
   objective: string | null
+  objectiveModalOpen: boolean
   persona: string | null
+  personaModalOpen: boolean
   platform: Platform | null
   postContent: string
 }
 
 const initialState: createPostSlice = {
   objective: null,
+  objectiveModalOpen: false,
   persona: null,
+  personaModalOpen: false,
   platform: null,
   postContent: '',
 }
@@ -53,7 +57,9 @@ export const createPostSlice = createSlice({
   reducers: {
     resetCreatePost: (state) => {
       state.objective = null
+      state.objectiveModalOpen = false
       state.persona = null
+      state.personaModalOpen = false
       state.platform = null
       state.postContent = ''
     },
@@ -69,13 +75,21 @@ export const createPostSlice = createSlice({
     setPostContent: (state, action: PayloadAction<string>) => {
       state.postContent = action.payload
     },
+    setObjectiveModal: (state, action: PayloadAction<boolean>) => {
+      state.objectiveModalOpen = action.payload
+    },
+    setPersonaModal: (state, action: PayloadAction<boolean>) => {
+      state.personaModalOpen = action.payload
+    },
   },
 })
 
 export const {
   resetCreatePost,
   setObjective,
+  setObjectiveModal,
   setPersona,
+  setPersonaModal,
   setPlatform,
   setPostContent,
 } = createPostSlice.actions
