@@ -24,7 +24,9 @@ export const DetailedAnalysis = ({
         <p className="space-y-2 font-bold tracking-tight">Suggestions :</p>
 
         {suggestions.map((suggestion) => (
-          <p className="text-sm">- {suggestion}</p>
+          <p key={suggestion} className="text-sm">
+            - {suggestion}
+          </p>
         ))}
       </div>
     </div>
