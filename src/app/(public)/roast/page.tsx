@@ -1,5 +1,6 @@
-import { Container } from '../components/Container'
+import { ContainerSingleColumn } from '../components/Container'
 import { CreatePanel } from './components/CreatePanel'
+import { Footer } from '../components/Footer'
 import { Navbar } from '../components/Navbar'
 import { ResultsPanel } from './components/ResultsPanel'
 
@@ -8,12 +9,14 @@ export default function Roast() {
     <div className="space-y-20">
       <Navbar />
 
-      <Container>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <ContainerSingleColumn>
+        <div className="space-y-20">
           <CreatePanel />
           <ResultsPanel />
         </div>
-      </Container>
+      </ContainerSingleColumn>
+
+      <Footer />
     </div>
   )
 }

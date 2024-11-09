@@ -1,5 +1,6 @@
 import { Container } from '../components/Container'
 import Features from './components/Features'
+import { Footer } from '../components/Footer'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Navbar } from '../components/Navbar'
@@ -161,38 +162,6 @@ const Cta = () => {
           href="/roast"
         >
           Try, it's free
-        </Link>
-      </div>
-    </div>
-  )
-}
-
-const Footer = () => {
-  return (
-    <div className="flex items-center justify-between bg-black p-4 py-8 text-white lg:px-8">
-      <Link
-        className="text-lg font-extrabold leading-tight tracking-tight"
-        href="/"
-      >
-        Post Roaster
-      </Link>
-
-      <div className="flex items-center justify-center gap-8">
-        <Link target="_blank" className="underline" href="/privacy-policy">
-          Privacy Policy
-        </Link>
-        <Link target="_blank" className="underline" href="/tos">
-          Terms of Service
-        </Link>
-      </div>
-
-      <div className="items-center-justify-end flex gap-2">
-        <p>Made by</p>
-        <Link
-          className="font-bold underline"
-          href="https://www.jeanrobertou.com"
-        >
-          Jean Robertou
         </Link>
       </div>
     </div>
