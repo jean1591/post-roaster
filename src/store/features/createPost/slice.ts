@@ -30,6 +30,7 @@ export enum Persona {
 
 export enum Platform {
   Linkedin = 'Linkedin',
+  Reddit = 'Reddit',
   Twitter = 'Twitter',
 }
 
