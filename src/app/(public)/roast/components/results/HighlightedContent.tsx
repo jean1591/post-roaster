@@ -65,18 +65,20 @@ export const HighlightedContent = ({
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       {/* Left side: original content with highlights */}
-      <div>
+      <div className="whitespace-pre-wrap">
         {segments.map((segment, index) =>
           segment.isHighlighted ? (
             <span
               key={index}
-              className="bg-yellow-200 font-semibold"
+              className="whitespace-pre-wrap bg-yellow-200 font-semibold"
               title={segment.suggestion}
             >
               {segment.text}
             </span>
           ) : (
-            <span key={index}>{segment.text}</span>
+            <span key={index} className="whitespace-pre-wrap">
+              {segment.text}
+            </span>
           )
         )}
       </div>
