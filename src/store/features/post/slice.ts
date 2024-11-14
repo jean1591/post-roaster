@@ -3,6 +3,7 @@ import { Post, PostAnalysis } from '@/app/api/interfaces/post'
 
 export enum Tab {
   Audience = 'Audience',
+  Content = 'Content',
   Engagement = 'Engagement',
   Language = 'Language',
   Structure = 'Structure',

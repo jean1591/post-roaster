@@ -1,6 +1,7 @@
 'use client'
 
 import { AudienceAnaylis } from './AudienceAnalysis'
+import { ContentAnalysis } from './ContentAnalysis'
 import { EngagementAnaylis } from './EngagementAnalysis'
 import { LanguageAnaylis } from './LanguageAnalysis'
 import { Results } from './Results'
@@ -19,6 +20,7 @@ export const Tab = () => {
   return (
     <div>
       {tab === TabEnum.Summary && <Results />}
+      {tab === TabEnum.Content && <ContentAnalysis />}
       {tab === TabEnum.Audience && <AudienceAnaylis />}
       {tab === TabEnum.Engagement && <EngagementAnaylis />}
       {tab === TabEnum.Language && <LanguageAnaylis />}
