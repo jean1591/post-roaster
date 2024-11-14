@@ -7,10 +7,10 @@ export const endpointFormatter = (request: NextRequest) => {
 }
 
 export const logger = {
-  error: (message: string, error: string, details?: unknown) => {
+  error: (message: string, details?: unknown) => {
     const today = new Date()
 
-    console.error(`${today.toISOString()} ERROR ${message}`, { error, details })
+    console.error(`${today.toISOString()} ERROR ${message}`, { details })
   },
   info: (message: string) => {
     const today = new Date()

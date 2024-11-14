@@ -11,14 +11,12 @@ export enum Tab {
 }
 
 export interface PostSlice {
-  postId: string | null
   postAnalysis: PostAnalysis | null
   post: Post | null
   tab: Tab
 }
 
 const initialState: PostSlice = {
-  postId: null,
   postAnalysis: null,
   post: null,
   tab: Tab.Summary,
@@ -29,9 +27,6 @@ export const createPostSlice = createSlice({
   name: 'createPostSlice',
   initialState,
   reducers: {
-    setPostId: (state, action: PayloadAction<string>) => {
-      state.postId = action.payload
-    },
     setPostAnalysis: (state, action: PayloadAction<PostAnalysis>) => {
       state.postAnalysis = action.payload
     },
@@ -44,7 +39,6 @@ export const createPostSlice = createSlice({
   },
 })
 
-export const { setPostId, setPostAnalysis, setPost, setTab } =
-  createPostSlice.actions
+export const { setPostAnalysis, setPost, setTab } = createPostSlice.actions
 
 export default createPostSlice.reducer

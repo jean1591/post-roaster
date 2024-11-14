@@ -1,22 +1,22 @@
 import OpenAI from 'openai'
-
-type Completion = OpenAI.Chat.Completions.ChatCompletion
+import { PostAnalysis } from '../interfaces/post'
+import { logger } from './logger'
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
-export const getOpenAiData = async (prompt: string): Promise<Completion> => {
-  let completion: Completion = await openai.chat.completions.create({
+export const getOpenAiData = async (prompt: string): Promise<PostAnalysis> => {
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: 'system', content: prompt }],
     model: 'gpt-4o-mini',
-    messages: [
-      { role: 'system', content: 'You are a helpful assistant.' },
-      {
-        role: 'user',
-        content: prompt,
-      },
-    ],
+    response_format: { type: 'json_object' },
   })
 
-  // console.info(JSON.stringify(completion, null, 2))
+  const { content: analysis } = completion.choices[0].message
 
-  return completion
+  if (!analysis) {
+    logger.error('OpenAI returned no content', { completion })
+    throw new Error('OpenAI returned no content')
+  }
+
+  return JSON.parse(analysis)
 }

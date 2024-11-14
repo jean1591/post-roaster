@@ -1,9 +1,15 @@
 'use client'
 
-import { Tab, setPostId, setTab } from '@/store/features/post/slice'
+import {
+  Tab,
+  setPost,
+  setPostAnalysis,
+  setTab,
+} from '@/store/features/post/slice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
+import { CreatePostDto } from '@/app/api/posts/route'
 import { PiArrowsClockwiseBold } from 'react-icons/pi'
 import { RootState } from '@/store/store'
 import { buttonHoverTransition } from '@/design/constants'
@@ -35,12 +41,13 @@ export const RoastButton = () => {
         body: JSON.stringify({ objective, persona, platform, postContent }),
       })
 
-      const newPost = await response.json()
+      const { post, postAnalysis } = (await response.json()) as CreatePostDto
 
       setIsLoading(false)
       dispatch(resetCreatePost())
       dispatch(setTab(Tab.Summary))
-      dispatch(setPostId(newPost.id))
+      dispatch(setPost(post))
+      dispatch(setPostAnalysis(postAnalysis))
     } catch (error) {
       console.error('Failed to save post', error)
       setIsLoading(false)

@@ -1,13 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Objective, Persona, Platform } from '@/store/features/createPost/slice'
+import { Post, PostAnalysis } from '../interfaces/post'
 import { endpointFormatter, logger } from '../utils/logger'
 
-import { PostAnalysis } from '../interfaces/post'
 import { getOpenAiData } from '../utils/getOpenAiData'
-import { openAiResponseToJsonFormatter } from '../utils/openAiResponseFormater'
 import prisma from '@/lib/prisma'
 
-export async function POST(request: NextRequest) {
+export interface CreatePostDto {
+  post: Post
+  postAnalysis: PostAnalysis
+}
+
+interface Error {
+  error: string
+  data: unknown
+}
+
+export async function POST(
+  request: NextRequest
+): Promise<NextResponse<CreatePostDto | Error>> {
   logger.info(endpointFormatter(request))
   try {
     const { objective, persona, platform, postContent } = await request.json()
@@ -22,7 +33,10 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Post creation error:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        error: 'Post creation error',
+        data: {},
+      },
       { status: 500 }
     )
   }
@@ -39,8 +53,8 @@ const validatePost = async ({
   persona,
   platform,
   postContent,
-}: PostDetails) => {
-  const newPost = await prisma.post.create({
+}: PostDetails): Promise<CreatePostDto> => {
+  const post = await prisma.post.create({
     data: {
       objective,
       persona,
@@ -50,60 +64,12 @@ const validatePost = async ({
   })
 
   const prompt = generatePrompt({ objective, persona, platform, postContent })
-  const completion = await getOpenAiData(prompt)
-  const postAnalysis = openAiResponseToJsonFormatter(
-    completion.choices[0].message.content ?? '{}'
-  )
+  const postAnalysis = await getOpenAiData(prompt)
 
-  await savePostAnalysis(newPost.id, postAnalysis)
-  await savePostCredibility(postAnalysis.credibility, newPost.id)
-  await savePostMessage(postAnalysis.message, newPost.id)
-
-  return newPost
-}
-
-async function savePostAnalysis(postId: string, postAnalysis: PostAnalysis) {
-  const { analysis } = postAnalysis
-
-  for (const analysisItem of analysis) {
-    await prisma.postAnalysis.create({
-      data: {
-        postId: postId,
-        label: analysisItem.label,
-        notation: analysisItem.notation,
-        suggestions: {
-          create: analysisItem.suggestions.map((suggestion) => ({
-            suggestion: suggestion,
-          })),
-        },
-      },
-    })
+  return {
+    post,
+    postAnalysis,
   }
-}
-
-const savePostCredibility = async (
-  credibility: {
-    value: number
-    message: string
-  },
-  postId: string
-) => {
-  await prisma.credibility.create({
-    data: {
-      postId: postId,
-      message: credibility.message,
-      value: credibility.value,
-    },
-  })
-}
-
-const savePostMessage = async (message: string, postId: string) => {
-  await prisma.message.create({
-    data: {
-      postId: postId,
-      message,
-    },
-  })
 }
 
 interface PromptOptions {
@@ -112,6 +78,7 @@ interface PromptOptions {
   objective: Objective
   persona: Persona
 }
+
 const generatePrompt = ({
   platform,
   postContent,
@@ -125,7 +92,7 @@ const generatePrompt = ({
 
     The platform is ${platform}, the targeted persona is ${persona} and the objective is to ${objective}.
 
-    For the provided post, return a json object with a notation from 0 to 10, 10 being perfect in its category, and a suggestions array that provide actionable insights with examples when applicable. Use harsh notation, be blunt in your suggestions.
+    For the provided post, return a json object with a notation from 0 to 10 (10 being perfect in its category) and a suggestions array providing actionable insights with examples when applicable. Use harsh notation and be blunt in your suggestions. Include a textSuggestions array where each suggestion object must correspond to the order of appearance in the original text - the first suggestion should reference text from the beginning of the post, and subsequent suggestions should follow the text's chronological order.
     
     The data structure should be:
     {
@@ -136,6 +103,13 @@ const generatePrompt = ({
       message: string, a one sentence summary of the post
       analysis: [
         { label: "Tone Analysis", notation: <some number from 0 to 10>, suggestions: ["improve this", "improve that"] }
+      ],
+      textSuggestions: [
+        {
+          phrase: string, // the phrase that is not good
+          issue: string, // the issue with the phrase
+          examples: string[] // phrases that are better alternatives
+        }
       ]
     }
         
