@@ -1,3 +1,5 @@
+import { PiGithubLogo, PiLinkedinLogo, PiTwitterLogo } from 'react-icons/pi'
+
 import Link from 'next/link'
 
 export const Footer = () => {
@@ -19,14 +21,40 @@ export const Footer = () => {
         </Link>
       </div>
 
-      <div className="items-center-justify-end flex gap-2">
-        <p>Made by</p>
-        <Link
-          className="font-bold underline"
-          href="https://www.jeanrobertou.com"
-        >
-          Jean Robertou
-        </Link>
+      <div className="space-y-2">
+        <div className="items-center-justify-end flex gap-2">
+          <p>Made by</p>
+          <Link
+            className="font-bold underline"
+            href="https://www.jeanrobertou.com"
+          >
+            Jean Robertou
+          </Link>
+        </div>
+
+        <div className="flex items-center justify-end gap-2">
+          <Link
+            href="https://github.com/jean1591"
+            target="_blank"
+            className="flex items-center justify-center"
+          >
+            <PiGithubLogo className="h-6 w-6" />
+          </Link>
+          <Link
+            href="https://www.linkedin.com/in/robertoujean/"
+            target="_blank"
+            className="flex items-center justify-center"
+          >
+            <PiLinkedinLogo className="h-6 w-6" />
+          </Link>
+          <Link
+            href="https://x.com/Jean_Robert_II/"
+            target="_blank"
+            className="flex items-center justify-center"
+          >
+            <PiTwitterLogo className="h-6 w-6" />
+          </Link>
+        </div>
       </div>
     </div>
   )
