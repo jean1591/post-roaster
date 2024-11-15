@@ -16,9 +16,10 @@ model Post {
     platform  String
     updatedAt DateTime @updatedAt
 
-    credibility  Credibility?
-    message      Message?
-    postAnalysis PostAnalysis[]
+    credibility    Credibility?
+    message        Message?
+    postAnalysis   PostAnalysis[]
+    textSuggestion TextSuggestion[]
 }
 
 model Credibility {
@@ -54,4 +55,14 @@ model Suggestion {
     suggestion     String
 
     postAnalysis PostAnalysis @relation(fields: [postAnalysisId], references: [id], onDelete: Cascade)
+}
+
+model TextSuggestion {
+    id       String   @id @default(cuid())
+    examples String[]
+    issue    String
+    phrase   String
+    postId   String
+
+    post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 }

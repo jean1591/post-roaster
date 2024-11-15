@@ -30,6 +30,12 @@ export interface AnalysisItem {
   suggestions: string[]
 }
 
+export interface TextSuggestion {
+  phrase: string
+  issue: string
+  examples: string[]
+}
+
 export interface PostAnalysis {
   analysis: AnalysisItem[]
   credibility: {
@@ -37,4 +43,5 @@ export interface PostAnalysis {
     message: string
   }
   message: string
+  textSuggestions: TextSuggestion[]
 }
