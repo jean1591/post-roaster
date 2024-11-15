@@ -3,6 +3,7 @@ import { Objective, Persona, Platform } from '@/store/features/createPost/slice'
 import { Post, PostAnalysis } from '../interfaces/post'
 import { endpointFormatter, logger } from '../utils/logger'
 
+import fs from 'fs'
 import { getOpenAiData } from '../utils/getOpenAiData'
 import prisma from '@/lib/prisma'
 
@@ -65,6 +66,7 @@ const validatePost = async ({
 
   const prompt = generatePrompt({ objective, persona, platform, postContent })
   const postAnalysis = await getOpenAiData(prompt)
+  fs.writeFileSync('postAnalysis.json', JSON.stringify(postAnalysis, null, 2))
 
   return {
     post,
@@ -85,47 +87,63 @@ const generatePrompt = ({
   objective,
   persona,
 }: PromptOptions) => {
-  return `
-    Analyse the following post:
-    
-    ${postContent}
+  return `As a ${platform} expert specializing in helping professionals maximize their presence and engagement on ${platform}, analyze the following post:
 
-    The platform is ${platform}, the targeted persona is ${persona} and the objective is to ${objective}.
+${postContent}
 
-    For the provided post, return a json object with a notation from 0 to 10 (10 being perfect in its category) and a suggestions array providing actionable insights with examples when applicable. Use harsh notation and be blunt in your suggestions. Include a textSuggestions array where each suggestion object must correspond to the order of appearance in the original text - the first suggestion should reference text from the beginning of the post, and subsequent suggestions should follow the text's chronological order.
-    
-    The data structure should be:
+Target audience: ${persona}
+Primary goal: ${objective}
+
+Expected JSON Format:
+{
+  "credibility": {
+    "value": number, // 0-100, where 100 is completely credible
+    "message": string // explanation if the score is below 100
+  },
+  "message": string, // concise summary of the post's main idea
+  "analysis": [
     {
-      credibility: {
-        value: number, from 0 to 100, 100 being completely true
-        message: string, an explanation why the score is not at 100
-      }
-      message: string, a one sentence summary of the post
-      analysis: [
-        { label: "Tone Analysis", notation: <some number from 0 to 10>, suggestions: ["improve this", "improve that"] }
-      ],
-      textSuggestions: [
-        {
-          phrase: string, // the phrase that is not good
-          issue: string, // the issue with the phrase
-          examples: string[] // phrases that are better alternatives
-        }
-      ]
+      "label": string, // analysis category name
+      "notation": number, // 0-10 rating, where 10 is perfect
+      "suggestions": string[] // actionable, straightforward improvement tips
     }
-        
-    Do that for the following categories:
-    Tone Analysis
-    Readability Score
-    Text Length Check
-    Paragraph and Sentence Structure
-    Persona Alignment
-    Platform-Specific Language
-    Objective Alignment Check
-    Engagement Potential
-    Hashtag Suggestions
-    Clarity and Specificity
-    Grammar and Spelling Check
-    Buzzword and Cliché Detector
-    Sentiment Analysis
-  `
+  ],
+  "textSuggestions": [
+    {
+      "phrase": string, // exact phrase from the post that could be improved (case-sensitive match)
+      "issue": string, // specific issue with the phrase
+      "examples": string[] // clear, copy-pasteable replacement suggestions that fit the tone and style
+    }
+  ]
+}
+
+Important Instructions for textSuggestions:
+- textSuggestions must appear in the exact sequence that matches the phrases in the original post.
+- Each entry in textSuggestions should directly reference phrases in the post, ordered strictly based on their appearance in the text. Do not rearrange or list them out of sequence.
+- If the order of textSuggestions does not match the flow of the original text, the response will be considered incorrect. 
+
+
+Scoring & Suggestions:
+- Use a 0-10 notation (10 = perfect) for each category.
+- Be direct and use blunt, actionable language in feedback.
+- Respect the existing tone of the post, offering improvements that maintain or subtly enhance its current style.
+- Focus on readability, engagement, and alignment with the target persona and ${platform}'s style.
+
+Analyze the post on the following criteria:
+1. Tone Analysis - Is the tone engaging and appropriate for the target persona?
+2. Readability Score - Is the text easy to read, with concise sentences and bullet points?
+3. Text Length Check - Is the length optimized for ${platform}?
+4. Paragraph and Sentence Structure - Are paragraphs concise, with straightforward sentence structures?
+5. Persona Alignment - Does the post resonate with the target audience?
+6. Platform-Specific Language - Is the language suitable for ${platform}'s norms?
+7. Objective Alignment Check - Does the post align with the intended goal?
+8. Engagement Potential - Are there calls to action or engaging questions?
+9. Hashtag Suggestions - Recommend relevant hashtags for reach.
+10. Clarity and Specificity - Is the post clear and specific?
+11. Grammar and Spelling Check - Identify any issues.
+12. Buzzword and Cliché Detector - Flag overused phrases.
+13. Sentiment Analysis - Does the tone convey the intended sentiment?
+
+For each category, include practical feedback that can be immediately applied. Ensure all responses are in the same language as the original post.
+`
 }

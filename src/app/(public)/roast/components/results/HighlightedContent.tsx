@@ -7,7 +7,6 @@ export const HighlightedContent = ({
   content: string
   suggestions: { phrase: string; issue: string; examples: string[] }[]
 }) => {
-  // Helper function to split text based on phrases to highlight
   const splitContentByHighlights = (
     suggestions: { phrase: string; issue: string; examples: string[] }[]
   ): {
@@ -16,20 +15,24 @@ export const HighlightedContent = ({
     suggestion?: string
     examples?: string[]
   }[] => {
+    const suggestionsWithPosition = suggestions
+      .map((suggestion) => ({
+        ...suggestion,
+        position: content
+          .toLowerCase()
+          .indexOf(suggestion.phrase.toLowerCase()),
+      }))
+      .filter((s) => s.position !== -1)
+      .sort((a, b) => a.position - b.position)
+
     let remainingText = content
+    let remainingLowerText = content.toLowerCase()
     const segments = []
 
-    suggestions.forEach((suggestion) => {
+    suggestionsWithPosition.forEach((suggestion) => {
       const { phrase, issue, examples } = suggestion
-      const phraseIndex = remainingText.indexOf(phrase)
+      const phraseIndex = remainingLowerText.indexOf(phrase.toLowerCase())
 
-      if (phraseIndex === -1) {
-        // If the phrase is not found, skip it
-        console.warn(`Phrase "${phrase}" not found in content`)
-        return
-      }
-
-      // Add text before the highlighted phrase as a non-highlighted segment
       if (phraseIndex > 0) {
         segments.push({
           text: remainingText.slice(0, phraseIndex),
@@ -37,19 +40,17 @@ export const HighlightedContent = ({
         })
       }
 
-      // Add the highlighted phrase segment
       segments.push({
-        text: phrase,
+        text: remainingText.slice(phraseIndex, phraseIndex + phrase.length),
         isHighlighted: true,
         suggestion: issue,
         examples: examples,
       })
 
-      // Update remainingText to the text after the current phrase
       remainingText = remainingText.slice(phraseIndex + phrase.length)
+      remainingLowerText = remainingLowerText.slice(phraseIndex + phrase.length)
     })
 
-    // Add any remaining non-highlighted text
     if (remainingText) {
       segments.push({
         text: remainingText,
